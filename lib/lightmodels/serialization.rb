@@ -7,15 +7,20 @@ module LightModels
 
 module Serialization
 
-@serialization_ids = {}
-@next_serialization_id = 1
+@serialization_ids = {} unless @serialization_ids
+@next_serialization_id = 1 unless @next_serialization_id
+
+class << self
+	attr_reader :serialization_ids
+	attr_accessor :next_serialization_id
+end
 
 def self.serialization_id(obj)
-	unless $serialization_ids[obj]		
-		$serialization_ids[obj] = $next_serialization_id
-		$next_serialization_id += 1
+	unless LightModels::Serialization.serialization_ids[obj]		
+		LightModels::Serialization.serialization_ids[obj] = LightModels::Serialization.next_serialization_id
+		LightModels::Serialization.next_serialization_id += 1
 	end
-	$serialization_ids[obj]
+	LightModels::Serialization.serialization_ids[obj]
 end
 
 def self.qname(e_object)

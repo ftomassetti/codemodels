@@ -9,6 +9,12 @@ Gem::Specification.new do |s|
   s.email       = 'f.tomassetti@gmail.com'
   s.homepage    = 'http://federico-tomassetti.it'
   s.files       = [
-	]
+     "lib/lightmodels.rb"
+  ]
+  curr_dir = File.dirname(__FILE__)
+  Dir[curr_dir+"/lib/lightmodels/*.rb"].each do |rb|
+    s.files << rb
+  end
+
   s.add_dependency('emf_jruby')
 end
