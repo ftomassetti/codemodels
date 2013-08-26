@@ -3,29 +3,28 @@
 
 module LightModels
 
-module Json
-
 module Query
 
-	def rel_conts(root)
+	def self.rel_conts(root)
 		root.keys.select {|k| k.start_with? 'relcont_'}
 	end
 
-	def rel_non_conts(root)
+	def self.rel_non_conts(root)
 		root.keys.select {|k| k.start_with? 'relcont_'}
 	end
 
-	def attrs(root)
+	def self.attrs(root)
 		root.keys.select {|k| k.start_with? 'attr_'}
 	end
 
-	def values(root,feat)
+	def self.values(root,feat)
 		raw = root[feat]
+		return [] if raw==nil
 		return raw if raw.is_a? Array
 		return [raw]
 	end
 
-	def traverse(root,depth=0,&op)
+	def self.traverse(root,depth=0,&op)
 		return traverse(root['root'],depth,&op) if root and (root.key? 'root')
 		op.call(root,depth)
 		return unless root		
@@ -41,7 +40,7 @@ module Query
 		end
 	end
 
-	def print_tree(root,depth=0)
+	def self.print_tree(root,depth=0)
 		traverse(root) do |n,d|
 			s = ""
 			d.times { s = s + "  " }
@@ -50,8 +49,6 @@ module Query
 			puts s
 		end
 	end
-
-end
 
 end
 
