@@ -17,4 +17,5 @@ Gem::Specification.new do |s|
   end
 
   s.add_dependency('emf_jruby')
+  s.add_dependency('json')
 end
