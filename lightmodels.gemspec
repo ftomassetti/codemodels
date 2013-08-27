@@ -1,8 +1,8 @@
 Gem::Specification.new do |s|
   s.platform    = 'java'
   s.name        = 'lightmodels'
-  s.version     = '0.1.1'
-  s.date        = '2013-08-26'
+  s.version     = '0.1.2'
+  s.date        = '2013-08-27'
   s.summary     = "Light format to store models"
   s.description = "Light format to store models. Mostly they are stored in Hash and Array."
   s.authors     = ["Federico Tomassetti"]

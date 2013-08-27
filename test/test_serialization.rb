@@ -13,7 +13,7 @@ class TestSerialization < Test::Unit::TestCase
 
 	def test_to_model_with_single_obj
 		p = EMF.create_eobject(Person)
-		m = Serialization.to_model(p)
+		m = Serialization.eobject_to_model(p)
 
 		assert_equal 1,m['root']['id']
 		assert_equal 0,m['external_elements'].count
