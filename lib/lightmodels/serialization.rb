@@ -2,6 +2,7 @@
 # containing lists and single values
 
 require 'json'
+require 'fileutils'
 
 module LightModels
 
