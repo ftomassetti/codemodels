@@ -119,7 +119,7 @@ def self.load_models_from_dir(dir,verbose=false,max=-1)
 	per_type_values_map
 end
 
-def self.eobject_to_model(root)
+def self.eobject_to_model(root,adapters={})
 	model = {}
 	external_elements = if root.eResource
 		root.eResource.contents.select {|e| e!=root}
@@ -127,7 +127,7 @@ def self.eobject_to_model(root)
 		[]
 	end
 
-	model['root'] = jsonize_obj(root)
+	model['root'] = jsonize_obj(root,adapters)
 	model['external_elements'] = []
 	external_elements.each do |ee|
 		model['external_elements'] << jsonize_obj(ee)
