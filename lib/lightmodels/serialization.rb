@@ -140,12 +140,12 @@ def self.save_as_model(root,model_path)
 	save_model(model,model_path)
 end
 
-def self.save_model(model,model_path)
+def self.save_model(model,model_path, max_nesting=500)
 	dir = File.dirname(model_path)
 	FileUtils.mkdir_p(dir) 
 
 	File.open(model_path, 'w') do |file| 		
-		file.write(JSON.pretty_generate(model))
+		file.write(JSON.pretty_generate(model, :max_nesting => max_nesting))
 	end
 end
 
