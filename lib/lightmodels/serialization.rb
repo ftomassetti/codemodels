@@ -88,8 +88,8 @@ def self.jsonize_obj(e_object, adapters={})
 	end
 end
 
-def self.load_file(path,max_nesting=100)
-	parse(File.read(path),{max_nesting: max_nesting})
+def self.load_file(path,max_nesting=500)
+	JSON.parse(File.read(path),{max_nesting: max_nesting})
 end
 
 def self.load_models_from_dir(dir,verbose=false,max=-1)

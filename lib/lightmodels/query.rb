@@ -17,6 +17,20 @@ def self.collect_values(el)
 	values
 end
 
+# a counting map values appearing in the object and its children
+def self.collect_values_with_count(el)
+	values = Hash.new {|h,k| h[k]=0}
+	rel_conts(el).each do |r|
+		LightModels::Query.values(el,r).each do |ch| 
+			collect_values_with_count(ch).each {|v,count| values[v]+=count}
+		end
+	end
+	attrs(el).each do |a|
+		LightModels::Query.values(el,a).each {|v| values[v]+=1 }
+	end
+	values
+end
+
 end
 
 end
