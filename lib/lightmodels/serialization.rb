@@ -118,7 +118,7 @@ def self.load_models_from_dir(dir,verbose=false,max=-1)
 	per_type_values_map
 end
 
-def self.to_model(root)
+def self.eobject_to_model(root)
 	model = {}
 	external_elements = if root.eResource
 		root.eResource.contents.select {|e| e!=root}
@@ -136,6 +136,10 @@ end
 
 def self.save_as_model(root,model_path)
 	model = to_model(root)
+	save_model(model,model_path)
+end
+
+def self.save_model(model,model_path)
 	dir = File.dirname(model_path)
 	FileUtils.mkdir_p(dir) 
 
