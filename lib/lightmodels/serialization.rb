@@ -25,13 +25,21 @@ def self.serialization_id(obj)
 end
 
 def self.qname(e_object)
-	e_class = e_object.eClass
-	e_package = e_class.ePackage
-	"#{e_package.nsURI}##{e_class.name}"
+	if e_object.respond_to? :eClass 
+		e_class = e_object.eClass
+		e_package = e_class.ePackage
+		"#{e_package.nsURI}##{e_class.name}"
+	else
+		e_object.class.to_s
+	end
 end
 
 def self.jsonize_attr_value(map,e_object,e_attr)
-	value = e_object.eGet e_attr
+	if e_object.respond_to? :eGet
+		value = e_object.eGet e_attr
+	else
+		value = e_object.send e_attr.name.to_sym
+	end
 	if e_attr.upperBound==1
 		map["attr_#{e_attr.name}"] = value
 	else
@@ -52,7 +60,11 @@ def self.jsonize_ref_single_el(single_value,containment,adapters)
 end
 
 def self.jsonize_ref_value(map,e_object,e_ref,adapters)
-	value = e_object.eGet e_ref
+	if e_object.respond_to? :eGet
+		value = e_object.eGet e_ref
+	else
+		value = e_object.send e_ref.name.to_sym
+	end
 
 	propname = "relcont_#{e_ref.name}" if e_ref.containment
 	propname = "relnoncont_#{e_ref.name}" if not e_ref.containment
@@ -73,7 +85,11 @@ def self.jsonize_obj(e_object, adapters={})
 		nil
 	else 
 		map = { 'type' => qname(e_object), 'id' => serialization_id(e_object) }
-		e_class = e_object.eClass
+		if e_object.respond_to? :eClass
+			e_class = e_object.eClass			
+		else
+			e_class = e_object.class.ecore
+		end
 		e_class.eAllAttributes.each do |a|		
 			jsonize_attr_value(map,e_object,a)
 		end
@@ -120,12 +136,30 @@ def self.load_models_from_dir(dir,verbose=false,max=-1)
 end
 
 def self.eobject_to_model(root,adapters={})
+	@serialization_ids = {}
+	@next_serialization_id = 1
+
 	model = {}
 	external_elements = if root.eResource
 		root.eResource.contents.select {|e| e!=root}
 	else
 		[]
 	end
+
+	model['root'] = jsonize_obj(root,adapters)
+	model['external_elements'] = []
+	external_elements.each do |ee|
+		model['external_elements'] << jsonize_obj(ee)
+	end
+	model
+end
+
+def self.rgenobject_to_model(root,adapters={})
+	@serialization_ids = {}
+	@next_serialization_id = 1
+
+	model = {}
+	external_elements = []
 
 	model['root'] = jsonize_obj(root,adapters)
 	model['external_elements'] = []
