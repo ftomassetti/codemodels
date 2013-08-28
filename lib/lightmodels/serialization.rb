@@ -74,7 +74,11 @@ def self.jsonize_ref_value(map,e_object,e_ref,adapters)
 	else
 		l = []
 		(0..(value.size-1)).each do |i|
-			l << jsonize_ref_single_el(value.get(i),e_ref.containment,adapters)
+			if value.is_a? Array
+				l << jsonize_ref_single_el(value.at(i),e_ref.containment,adapters)
+			else
+				l << jsonize_ref_single_el(value.get(i),e_ref.containment,adapters)
+			end
 		end
 		map[propname] = l
 	end
