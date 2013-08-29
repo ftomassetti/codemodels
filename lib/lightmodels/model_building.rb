@@ -8,30 +8,40 @@ class << self
 	attr_accessor :verbose
 end
 
-def self.generate_models_in_dir(src,dest,src_extension,dest_extension,max_nesting=500,&model_creator)
+def self.generate_models_in_dir(src,dest,src_extension,dest_extension,max_nesting=500,error_handler=nil,&model_creator)
 	puts "== #{src} -> #{dest} ==" if LightModels::ModelBuilding.verbose
 	Dir["#{src}/*"].each do |fd|		
 		if File.directory? fd
 			basename = File.basename(fd)
-			generate_models_in_dir("#{src}/#{basename}","#{dest}/#{basename}",src_extension,dest_extension,&model_creator)
+			generate_models_in_dir("#{src}/#{basename}","#{dest}/#{basename}",src_extension,dest_extension,max_nesting,error_handler,&model_creator)
 		else
 			if File.extname(fd)==".#{src_extension}"
 				translated_simple_name = "#{File.basename(fd, ".#{src_extension}")}.#{dest_extension}"
 				translated_name = "#{dest}/#{translated_simple_name}"
 				puts "* #{fd} --> #{translated_name}" if LightModels::ModelBuilding.verbose
-				generate_model_per_file(fd,translated_name,max_nesting,&model_creator)
+				generate_model_per_file(fd,translated_name,max_nesting,error_handler,&model_creator)
 			end
 		end
 	end
 end
 
-def self.generate_model_per_file(src,dest,max_nesting=500,&models_generator)
+def self.generate_model_per_file(src,dest,max_nesting=500,error_handler=nil,&models_generator)
 	if not File.exist? dest 
 		puts "<Model from #{src}>"
-	
-		m = models_generator.call(src)
-
-		LightModels::Serialization.save_model(m,dest,max_nesting)
+		
+		if error_handler
+			begin
+				m = models_generator.call(src)
+				LightModels::Serialization.save_model(m,dest,max_nesting)
+			rescue Exception => e
+				error_handler.call(src,e)
+			rescue
+				error_handler.call(src,nil)
+			end
+		else
+			m = models_generator.call(src)
+			LightModels::Serialization.save_model(m,dest,max_nesting)
+		end
 	else
 		puts "skipping #{src} because #{dest} found" if LightModels::ModelBuilding.verbose 
 	end
