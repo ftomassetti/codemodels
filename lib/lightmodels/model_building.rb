@@ -45,7 +45,7 @@ def self.handle_model_per_file(src,error_handler=nil,model_handler,&models_gener
 	if error_handler
 		begin
 			m = models_generator.call(src)
-			model_handler.handle(src,m)
+			model_handler.call(src,m)
 		rescue Exception => e
 			error_handler.call(src,e)
 		rescue
