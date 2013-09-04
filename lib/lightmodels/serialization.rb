@@ -46,11 +46,14 @@ def self.jsonize_attr_value(map,e_object,e_attr)
 		l = []
 		if value.respond_to? :size
 			dim = value.size-1
+			value.each do |e|
+				l << e
+			end
 		else
 			dim = value.count-1
-		end
-		(0..(dim)).each do |i|
-			l << value.get(i)
+			(0..(dim)).each do |i|
+				l << value.get(i)
+			end
 		end
 		map["attr_#{e_attr.name}"] = l
 	end
