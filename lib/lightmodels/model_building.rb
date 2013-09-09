@@ -9,7 +9,7 @@ class << self
 end
 
 def self.handle_models_in_dir(src,src_extension,error_handler=nil,model_handler,&model_creator)
-	puts "== #{src} -> #{dest} ==" if LightModels::ModelBuilding.verbose
+	puts "== #{src} ==" if LightModels::ModelBuilding.verbose
 	Dir["#{src}/*"].each do |fd|		
 		if File.directory? fd
 			basename = File.basename(fd)
