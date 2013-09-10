@@ -1,0 +1,443 @@
+{
+            "type": "http://www.emftext.org/java/members#ClassMethod",
+            "id": 774,
+            "attr_name": "setCompleted",
+            "relcont_layoutInformations": [
+
+            ],
+            "relcont_typeReference": {
+              "type": "http://www.emftext.org/java/types#Void",
+              "id": 775,
+              "relcont_layoutInformations": [
+
+              ]
+            },
+            "relcont_arrayDimensionsBefore": [
+
+            ],
+            "relcont_arrayDimensionsAfter": [
+
+            ],
+            "relcont_typeParameters": [
+
+            ],
+            "relcont_parameters": [
+              {
+                "type": "http://www.emftext.org/java/parameters#OrdinaryParameter",
+                "id": 776,
+                "attr_name": "completed",
+                "relcont_layoutInformations": [
+
+                ],
+                "relcont_typeReference": {
+                  "type": "http://www.emftext.org/java/types#Boolean",
+                  "id": 777,
+                  "relcont_layoutInformations": [
+
+                  ]
+                },
+                "relcont_arrayDimensionsBefore": [
+
+                ],
+                "relcont_arrayDimensionsAfter": [
+
+                ],
+                "relcont_typeArguments": [
+
+                ],
+                "relcont_annotationsAndModifiers": [
+
+                ]
+              }
+            ],
+            "relcont_exceptions": [
+
+            ],
+            "relcont_annotationsAndModifiers": [
+              {
+                "type": "http://www.emftext.org/java/modifiers#Public",
+                "id": 778,
+                "relcont_layoutInformations": [
+
+                ]
+              }
+            ],
+            "relcont_statements": [
+              {
+                "type": "http://www.emftext.org/java/statements#ExpressionStatement",
+                "id": 779,
+                "relcont_layoutInformations": [
+
+                ],
+                "relcont_expression": {
+                  "type": "http://www.emftext.org/java/expressions#AssignmentExpression",
+                  "id": 780,
+                  "relcont_layoutInformations": [
+
+                  ],
+                  "relcont_child": {
+                    "type": "http://www.emftext.org/java/expressions#ConditionalExpression",
+                    "id": 781,
+                    "relcont_layoutInformations": [
+
+                    ],
+                    "relcont_child": {
+                      "type": "http://www.emftext.org/java/expressions#ConditionalOrExpression",
+                      "id": 782,
+                      "relcont_layoutInformations": [
+
+                      ],
+                      "relcont_children": [
+                        {
+                          "type": "http://www.emftext.org/java/expressions#ConditionalAndExpression",
+                          "id": 783,
+                          "relcont_layoutInformations": [
+
+                          ],
+                          "relcont_children": [
+                            {
+                              "type": "http://www.emftext.org/java/expressions#InclusiveOrExpression",
+                              "id": 784,
+                              "relcont_layoutInformations": [
+
+                              ],
+                              "relcont_children": [
+                                {
+                                  "type": "http://www.emftext.org/java/expressions#ExclusiveOrExpression",
+                                  "id": 785,
+                                  "relcont_layoutInformations": [
+
+                                  ],
+                                  "relcont_children": [
+                                    {
+                                      "type": "http://www.emftext.org/java/expressions#AndExpression",
+                                      "id": 786,
+                                      "relcont_layoutInformations": [
+
+                                      ],
+                                      "relcont_children": [
+                                        {
+                                          "type": "http://www.emftext.org/java/expressions#EqualityExpression",
+                                          "id": 787,
+                                          "relcont_layoutInformations": [
+
+                                          ],
+                                          "relcont_equalityOperators": [
+
+                                          ],
+                                          "relcont_children": [
+                                            {
+                                              "type": "http://www.emftext.org/java/expressions#InstanceOfExpression",
+                                              "id": 788,
+                                              "relcont_layoutInformations": [
+
+                                              ],
+                                              "relcont_arrayDimensionsBefore": [
+
+                                              ],
+                                              "relcont_arrayDimensionsAfter": [
+
+                                              ],
+                                              "relcont_typeReference": null,
+                                              "relcont_child": {
+                                                "type": "http://www.emftext.org/java/expressions#RelationExpression",
+                                                "id": 789,
+                                                "relcont_layoutInformations": [
+
+                                                ],
+                                                "relcont_children": [
+                                                  {
+                                                    "type": "http://www.emftext.org/java/expressions#ShiftExpression",
+                                                    "id": 790,
+                                                    "relcont_layoutInformations": [
+
+                                                    ],
+                                                    "relcont_children": [
+                                                      {
+                                                        "type": "http://www.emftext.org/java/expressions#AdditiveExpression",
+                                                        "id": 791,
+                                                        "relcont_layoutInformations": [
+
+                                                        ],
+                                                        "relcont_children": [
+                                                          {
+                                                            "type": "http://www.emftext.org/java/expressions#MultiplicativeExpression",
+                                                            "id": 792,
+                                                            "relcont_layoutInformations": [
+
+                                                            ],
+                                                            "relcont_children": [
+                                                              {
+                                                                "type": "http://www.emftext.org/java/expressions#UnaryExpression",
+                                                                "id": 793,
+                                                                "relcont_layoutInformations": [
+
+                                                                ],
+                                                                "relcont_operators": [
+
+                                                                ],
+                                                                "relcont_child": {
+                                                                  "type": "http://www.emftext.org/java/expressions#SuffixUnaryModificationExpression",
+                                                                  "id": 794,
+                                                                  "relcont_layoutInformations": [
+
+                                                                  ],
+                                                                  "relcont_child": {
+                                                                    "type": "http://www.emftext.org/java/references#SelfReference",
+                                                                    "id": 795,
+                                                                    "relcont_layoutInformations": [
+
+                                                                    ],
+                                                                    "relcont_typeArguments": [
+
+                                                                    ],
+                                                                    "relcont_next": {
+                                                                      "type": "http://www.emftext.org/java/references#IdentifierReference",
+                                                                      "id": 796,
+                                                                      "relcont_layoutInformations": [
+
+                                                                      ],
+                                                                      "relcont_typeArguments": [
+
+                                                                      ],
+                                                                      "relcont_next": null,
+                                                                      "relcont_arraySelectors": [
+
+                                                                      ],
+                                                                      "relnoncont_target": 79
+                                                                    },
+                                                                    "relcont_arraySelectors": [
+
+                                                                    ],
+                                                                    "relcont_self": {
+                                                                      "type": "http://www.emftext.org/java/literals#This",
+                                                                      "id": 797,
+                                                                      "relcont_layoutInformations": [
+
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  "relcont_operator": null
+                                                                }
+                                                              }
+                                                            ],
+                                                            "relcont_multiplicativeOperators": [
+
+                                                            ]
+                                                          }
+                                                        ],
+                                                        "relcont_additiveOperators": [
+
+                                                        ]
+                                                      }
+                                                    ],
+                                                    "relcont_shiftOperators": [
+
+                                                    ]
+                                                  }
+                                                ],
+                                                "relcont_relationOperators": [
+
+                                                ]
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "relcont_expressionIf": null,
+                    "relcont_expressionElse": null
+                  },
+                  "relcont_assignmentOperator": {
+                    "type": "http://www.emftext.org/java/operators#Assignment",
+                    "id": 798,
+                    "relcont_layoutInformations": [
+
+                    ]
+                  },
+                  "relcont_value": {
+                    "type": "http://www.emftext.org/java/expressions#AssignmentExpression",
+                    "id": 799,
+                    "relcont_layoutInformations": [
+
+                    ],
+                    "relcont_child": {
+                      "type": "http://www.emftext.org/java/expressions#ConditionalExpression",
+                      "id": 800,
+                      "relcont_layoutInformations": [
+
+                      ],
+                      "relcont_child": {
+                        "type": "http://www.emftext.org/java/expressions#ConditionalOrExpression",
+                        "id": 801,
+                        "relcont_layoutInformations": [
+
+                        ],
+                        "relcont_children": [
+                          {
+                            "type": "http://www.emftext.org/java/expressions#ConditionalAndExpression",
+                            "id": 802,
+                            "relcont_layoutInformations": [
+
+                            ],
+                            "relcont_children": [
+                              {
+                                "type": "http://www.emftext.org/java/expressions#InclusiveOrExpression",
+                                "id": 803,
+                                "relcont_layoutInformations": [
+
+                                ],
+                                "relcont_children": [
+                                  {
+                                    "type": "http://www.emftext.org/java/expressions#ExclusiveOrExpression",
+                                    "id": 804,
+                                    "relcont_layoutInformations": [
+
+                                    ],
+                                    "relcont_children": [
+                                      {
+                                        "type": "http://www.emftext.org/java/expressions#AndExpression",
+                                        "id": 805,
+                                        "relcont_layoutInformations": [
+
+                                        ],
+                                        "relcont_children": [
+                                          {
+                                            "type": "http://www.emftext.org/java/expressions#EqualityExpression",
+                                            "id": 806,
+                                            "relcont_layoutInformations": [
+
+                                            ],
+                                            "relcont_equalityOperators": [
+
+                                            ],
+                                            "relcont_children": [
+                                              {
+                                                "type": "http://www.emftext.org/java/expressions#InstanceOfExpression",
+                                                "id": 807,
+                                                "relcont_layoutInformations": [
+
+                                                ],
+                                                "relcont_arrayDimensionsBefore": [
+
+                                                ],
+                                                "relcont_arrayDimensionsAfter": [
+
+                                                ],
+                                                "relcont_typeReference": null,
+                                                "relcont_child": {
+                                                  "type": "http://www.emftext.org/java/expressions#RelationExpression",
+                                                  "id": 808,
+                                                  "relcont_layoutInformations": [
+
+                                                  ],
+                                                  "relcont_children": [
+                                                    {
+                                                      "type": "http://www.emftext.org/java/expressions#ShiftExpression",
+                                                      "id": 809,
+                                                      "relcont_layoutInformations": [
+
+                                                      ],
+                                                      "relcont_children": [
+                                                        {
+                                                          "type": "http://www.emftext.org/java/expressions#AdditiveExpression",
+                                                          "id": 810,
+                                                          "relcont_layoutInformations": [
+
+                                                          ],
+                                                          "relcont_children": [
+                                                            {
+                                                              "type": "http://www.emftext.org/java/expressions#MultiplicativeExpression",
+                                                              "id": 811,
+                                                              "relcont_layoutInformations": [
+
+                                                              ],
+                                                              "relcont_children": [
+                                                                {
+                                                                  "type": "http://www.emftext.org/java/expressions#UnaryExpression",
+                                                                  "id": 812,
+                                                                  "relcont_layoutInformations": [
+
+                                                                  ],
+                                                                  "relcont_operators": [
+
+                                                                  ],
+                                                                  "relcont_child": {
+                                                                    "type": "http://www.emftext.org/java/expressions#SuffixUnaryModificationExpression",
+                                                                    "id": 813,
+                                                                    "relcont_layoutInformations": [
+
+                                                                    ],
+                                                                    "relcont_child": {
+                                                                      "type": "http://www.emftext.org/java/references#IdentifierReference",
+                                                                      "id": 814,
+                                                                      "relcont_layoutInformations": [
+
+                                                                      ],
+                                                                      "relcont_typeArguments": [
+
+                                                                      ],
+                                                                      "relcont_next": null,
+                                                                      "relcont_arraySelectors": [
+
+                                                                      ],
+                                                                      "relnoncont_target": 776
+                                                                    },
+                                                                    "relcont_operator": null
+                                                                  }
+                                                                }
+                                                              ],
+                                                              "relcont_multiplicativeOperators": [
+
+                                                              ]
+                                                            }
+                                                          ],
+                                                          "relcont_additiveOperators": [
+
+                                                          ]
+                                                        }
+                                                      ],
+                                                      "relcont_shiftOperators": [
+
+                                                      ]
+                                                    }
+                                                  ],
+                                                  "relcont_relationOperators": [
+
+                                                  ]
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "relcont_expressionIf": null,
+                      "relcont_expressionElse": null
+                    },
+                    "relcont_assignmentOperator": null,
+                    "relcont_value": null
+                  }
+                }
+              }
+            ],
+            "attr_getter": false,
+            "relnoncont_getterFor": null,
+            "attr_setter": true,
+            "relnoncont_setterFor": 79
+          }

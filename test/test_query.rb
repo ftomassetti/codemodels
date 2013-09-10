@@ -49,4 +49,18 @@ class TestStats < Test::Unit::TestCase
 		assert_equal 1,map[27]
 	end
 
+	def test_collect_values_in_children_with_count_2
+		home = EMF.create_eobject(Address)
+		home.set_attr_value 'street','Federico'
+		home.set_attr_value 'number',27
+		federico = EMF.create_eobject(Person)
+		federico.set_attr_value 'name','Federico'
+		federico.set_ref_value 'home_address', home
+
+		map = LightModels::Query.collect_values_with_count(Serialization.eobject_to_model(federico)['root'])
+		assert_equal 2,map.count
+		assert_equal 2,map['Federico']
+		assert_equal 1,map[27]
+	end
+
 end

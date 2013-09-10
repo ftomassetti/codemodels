@@ -10,7 +10,7 @@ module Query
 	end
 
 	def self.rel_non_conts(root)
-		root.keys.select {|k| k.start_with? 'relcont_'}
+		root.keys.select {|k| k.start_with? 'relnoncont_'}
 	end
 
 	def self.attrs(root)
