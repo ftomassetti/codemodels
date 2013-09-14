@@ -28,7 +28,7 @@ end
 
 module ParserWrapper
 
-@@verbose = true
+@@verbose = false
 
 JavaCollection = ::Java::JavaClass.for_name("java.util.Collection")
 	
