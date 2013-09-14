@@ -90,7 +90,7 @@ def populate_attr(node,att,model)
 	value = get_feature_value(node,att)
 	#puts "Value got for #{node.class} #{att} : #{value.class}"
 	# nil are ignored
-	model.send(:"#{att.name}=",value) if value
+	model.send(:"#{att.name}=",value) if value!=nil
 rescue Object => e
 	puts "Problem while populating attribute #{att.name} of #{model} from #{node}. Value: #{value}"
 	raise e
@@ -100,7 +100,7 @@ def populate_ref(node,ref,model)
 	log("populate ref #{ref.name}, node: #{node.class}, model: #{model.class}")
 	value = get_feature_value(node,ref)
 	log("\tvalue=#{value.class}")
-	if value
+	if value!=nil
 		if value==node
 			puts "avoiding loop... #{ref.name}, class #{node.class}" 
 			return
