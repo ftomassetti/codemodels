@@ -99,7 +99,7 @@ end
 def populate_ref(node,ref,model)
 	log("populate ref #{ref.name}, node: #{node.class}, model: #{model.class}")
 	value = get_feature_value(node,ref)
-	log("\tvalue=#{value}")
+	log("\tvalue=#{value.class}")
 	if value
 		if value==node
 			puts "avoiding loop... #{ref.name}, class #{node.class}" 
