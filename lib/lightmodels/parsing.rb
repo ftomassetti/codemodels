@@ -136,7 +136,7 @@ def node_to_model(node)
 end
 
 def transform_enum_values(value)
-	if value.java_class.enum?
+	if value.respond_to?(:java_class) && value.java_class.enum?
 		value.name
 	else
 		value
