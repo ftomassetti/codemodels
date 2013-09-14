@@ -28,6 +28,8 @@ end
 
 module ParserWrapper
 
+@@verbose = true
+
 JavaCollection = ::Java::JavaClass.for_name("java.util.Collection")
 	
 def adapter(model_class,ref)
@@ -95,24 +97,33 @@ rescue Object => e
 end
 
 def populate_ref(node,ref,model)
+	log("populate ref #{reg.name}, node: #{node}, model: #{model}")
 	value = get_feature_value(node,ref)
+	log("\tvalue=#{value}")
 	if value
 		if value==node
 			puts "avoiding loop... #{ref.name}, class #{node.class}" 
 			return
 		end
 		if JavaCollection.assignable_from?(value.java_class)
+			log("\tvalue is a collection")
 			capitalized_name = ref.name.proper_capitalize	
 			value.each do |el|
 				model.send(:"add#{capitalized_name}",node_to_model(el))
 			end
 		else
+			log("\tvalue is not a collection")
 			model.send(:"#{ref.name}=",node_to_model(value))
 		end
 	end
 end
 
+def log(msg)
+	puts msg if @@verbose
+end
+
 def node_to_model(node)
+	log("node_to_model #{node}")
 	metaclass = get_corresponding_metaclass(node.class)
 	instance = metaclass.new
 	metaclass.ecore.eAllAttributes.each do |attr|
