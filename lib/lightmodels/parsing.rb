@@ -1,3 +1,5 @@
+require 'lightmodels/monkey_patching'
+
 module LightModels
 
 class ParsingError < Exception
