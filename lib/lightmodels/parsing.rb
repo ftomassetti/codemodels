@@ -97,7 +97,7 @@ rescue Object => e
 end
 
 def populate_ref(node,ref,model)
-	log("populate ref #{reg.name}, node: #{node}, model: #{model}")
+	log("populate ref #{ref.name}, node: #{node}, model: #{model}")
 	value = get_feature_value(node,ref)
 	log("\tvalue=#{value}")
 	if value
