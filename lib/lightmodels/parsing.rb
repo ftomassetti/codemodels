@@ -26,7 +26,7 @@ end
 
 module ParserWrapper
 	
-def self.adapter(model_class,ref)
+def adapter(model_class,ref)
 	if adapter_specific_class(model_class,ref)
 		adapter_specific_class(model_class,ref)
 	else
@@ -38,7 +38,7 @@ def self.adapter(model_class,ref)
 	end
 end
 
-def self.reference_to_method(model_class,ref)
+def reference_to_method(model_class,ref)
 	s = ref.name
 	#s = 'value' if s=='body'
 	adapted = adapter(model_class,ref)
@@ -46,14 +46,14 @@ def self.reference_to_method(model_class,ref)
 	s.to_sym
 end
 
-def self.attribute_to_method(model_class,att)
+def attribute_to_method(model_class,att)
 	s = att.name
 	adapted = adapter(model_class,att)
 	s = adapted if adapted		
 	s.to_sym
 end
 
-def self.assign_ref_to_model(model,ref,value)
+def assign_ref_to_model(model,ref,value)
 	return unless value # we do not need to assign a nil...
 	if ref.many
 		adder_method = :"add#{ref.name.capitalize}"
@@ -69,7 +69,7 @@ rescue Object => e
 	raise e
 end
 
-def self.assign_att_to_model(model,att,value)
+def assign_att_to_model(model,att,value)
 	if att.many
 		adder_method = :"add#{att.name.capitalize}"
 		value.each {|el| model.send(adder_method,el)}
@@ -80,14 +80,14 @@ def self.assign_att_to_model(model,att,value)
 	end
 end
 
-def self.populate_attr(node,att,model)	
+def populate_attr(node,att,model)	
 	value = get_feature_value(node,att.name)
 	#puts "Value got for #{node.class} #{att} : #{value.class}"
 	# nil are ignored
 	model.send(:"#{att.name}=",value) if value
 end
 
-def self.populate_ref(node,ref,model)
+def populate_ref(node,ref,model)
 	value = get_feature_value(node,ref.name)
 	if value
 		if value==node
@@ -105,7 +105,7 @@ def self.populate_ref(node,ref,model)
 	end
 end
 
-def self.node_to_model(node)
+def node_to_model(node)
 	metaclass = get_corresponding_metaclass(node.class)
 	instance = metaclass.new
 	metaclass.ecore.eAllAttributes.each do |attr|
