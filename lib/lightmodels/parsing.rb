@@ -60,7 +60,7 @@ def attribute_to_method(model_class,att)
 end
 
 def assign_ref_to_model(model,ref,value)
-	return unless value # we do not need to assign a nil...
+	return unless value==nil # we do not need to assign a nil...
 	if ref.many
 		adder_method = :"add#{ref.name.capitalize}"
 		value.each {|el| model.send(adder_method,node_to_model(el))}
