@@ -81,14 +81,14 @@ def assign_att_to_model(model,att,value)
 end
 
 def populate_attr(node,att,model)	
-	value = get_feature_value(node,att.name)
+	value = get_feature_value(node,att)
 	#puts "Value got for #{node.class} #{att} : #{value.class}"
 	# nil are ignored
 	model.send(:"#{att.name}=",value) if value
 end
 
 def populate_ref(node,ref,model)
-	value = get_feature_value(node,ref.name)
+	value = get_feature_value(node,ref)
 	if value
 		if value==node
 			puts "avoiding loop... #{ref.name}, class #{node.class}" 
@@ -133,13 +133,13 @@ def get_feature_value_through_getter(node,feat_name)
 	raise "how should I get this... #{feat_name} on #{node.class}. It does not respond to #{methods}"
 end
 
-def get_feature_value(node,feat_name)
-	adapter = adapter(node.class,feat_name)		
+def get_feature_value(node,feat)
+	adapter = adapter(node.class,feat)		
 	if adapter
 		#puts "Using adapter for #{node.class} #{feat_name}"
 		adapter[:adapter].call(node)
 	else
-		get_feature_value_through_getter(node,feat_name)
+		get_feature_value_through_getter(node,feat.name)
 	end
 end
 
