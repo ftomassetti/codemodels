@@ -124,7 +124,7 @@ end
 
 def node_to_model(node)
 	log("node_to_model #{node.class}")
-	metaclass = get_corresponding_metaclass(node.class)
+	metaclass = get_corresponding_metaclass(node)
 	instance = metaclass.new
 	metaclass.ecore.eAllAttributes.each do |attr|
 		populate_attr(node,attr,instance)
