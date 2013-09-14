@@ -135,6 +135,14 @@ def node_to_model(node)
 	instance
 end
 
+def transform_enum_values(value)
+	if value.java_class.enum?
+		value.name
+	else
+		value
+	end
+end
+
 def get_feature_value_through_getter(node,feat_name)
 	capitalized_name = feat_name.proper_capitalize
 	methods = [:"get#{capitalized_name}",:"is#{capitalized_name}"]
@@ -142,7 +150,7 @@ def get_feature_value_through_getter(node,feat_name)
 	methods.each do |m|
 		if node.respond_to?(m)
 			begin
-				return node.send(m)
+				return transform_enum_values(node.send(m))
 			rescue Object => e
 				raise "Problem invoking #{m} on #{node.class}: #{e}"
 			end
