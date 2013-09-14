@@ -27,6 +27,8 @@ class UnknownNodeType < ParsingError
 end
 
 module ParserWrapper
+
+JavaCollection = ::Java::JavaClass.for_name("java.util.Collection")
 	
 def adapter(model_class,ref)
 	if adapter_specific_class(model_class,ref)
@@ -96,7 +98,7 @@ def populate_ref(node,ref,model)
 			puts "avoiding loop... #{ref.name}, class #{node.class}" 
 			return
 		end
-		if value.is_a?(Java::JavaUtil::Collection)
+		if value.is_a?(JavaCollection)
 			capitalized_name = ref.name.proper_capitalize	
 			value.each do |el|
 				model.send(:"add#{capitalized_name}",node_to_model(el))
