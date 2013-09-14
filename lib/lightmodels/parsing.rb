@@ -98,7 +98,7 @@ def populate_ref(node,ref,model)
 			puts "avoiding loop... #{ref.name}, class #{node.class}" 
 			return
 		end
-		if value.is_a?(JavaCollection)
+		if JavaCollection.instance_of?(value)
 			capitalized_name = ref.name.proper_capitalize	
 			value.each do |el|
 				model.send(:"add#{capitalized_name}",node_to_model(el))
