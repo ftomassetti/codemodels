@@ -89,6 +89,9 @@ def populate_attr(node,att,model)
 	#puts "Value got for #{node.class} #{att} : #{value.class}"
 	# nil are ignored
 	model.send(:"#{att.name}=",value) if value
+rescue Object => e
+	puts "Problem while populating attribute #{att.name} of #{model} from #{node}. Value: #{value}"
+	raise e
 end
 
 def populate_ref(node,ref,model)
