@@ -106,6 +106,11 @@ class TermsBreaker
 
 end
 
+def self.values_map(model_node)
+	ser_model_node = LightModels::Serialization.jsonize_obj(model_node)
+	LightModels::Query.collect_values_with_count(ser_model_node)
+end
+
 def self.terms_map(language_specific_logic,model_node,context=nil)
 	# context default to root
 	unless context
@@ -119,8 +124,8 @@ def self.terms_map(language_specific_logic,model_node,context=nil)
 	# frequent series are recognized as composed terms
 	terms_breaker = TermsBreaker.from_context(language_specific_logic,context)
 
-	ser_model_node = LightModels::Serialization.jsonize_obj(model_node)
-	values_map = LightModels::Query.collect_values_with_count(ser_model_node)
+	
+	values_map = values_map(model_node)
 	#puts "values #{values_map}"
 	terms_map = Hash.new {|h,k| h[k]=0}
 	values_map.each do |v,n|
