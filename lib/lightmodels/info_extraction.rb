@@ -96,7 +96,7 @@ class TermsBreaker
 		term       = words[0]
 		while end_term < words.count && frequent_sequence?(words[end_term],words[end_term+1])
 			end_term += 1
-			term += words[end_term]
+			term = @language_specific_logic.concat(term,words[end_term])
 		end
 		return [term] if end_term==(words.count-1)
 		#puts "Words #{words.count}"
