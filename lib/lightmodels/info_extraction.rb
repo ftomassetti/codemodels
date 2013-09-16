@@ -124,7 +124,6 @@ def self.terms_map(language_specific_logic,model_node,context=nil)
 	# frequent series are recognized as composed terms
 	terms_breaker = TermsBreaker.from_context(language_specific_logic,context)
 
-	
 	values_map = values_map(model_node)
 	#puts "values #{values_map}"
 	terms_map = Hash.new {|h,k| h[k]=0}
