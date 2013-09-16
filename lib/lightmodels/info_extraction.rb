@@ -6,7 +6,8 @@ class TermsBreaker
 
 	attr_accessor :sequences, :inv_sequences
 
-	def initialize
+	def initialize(language_specific_logic)
+		@language_specific_logic = language_specific_logic
 		@sequences = Hash.new {|h,k| 
 			h[k] = Hash.new {|h,k| 
 				h[k]=0
@@ -22,7 +23,7 @@ class TermsBreaker
 	def self.from_context(language_specific_logic,context)
 		ser_context = LightModels::Serialization.jsonize_obj(context)
 		values_map = LightModels::Query.collect_values_with_count(ser_context)
-		instance = new	
+		instance = new(language_specific_logic)	
 		values_map.each do |value,c|
 			value = value.to_s.strip
 			if language_specific_logic.terms_containing_value?(value)
@@ -77,8 +78,8 @@ class TermsBreaker
 
 	def terms_in_value(value)
 		value = value.to_s.strip
-		if InfoExtraction.is_camel_case_str(value)
-			words = InfoExtraction.camel_to_words(value)
+		if @language_specific_logic.terms_containing_value?(value)
+			words = @language_specific_logic.to_words(value)
 			group_words_in_terms(words).map{|w| w.downcase}			
 		else
 			[value]
