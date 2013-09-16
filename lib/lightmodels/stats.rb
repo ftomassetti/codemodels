@@ -2,6 +2,7 @@ require 'emf_jruby'
 
 module LightModels
 
+# DEPRECATED
 class CountingMap
 
 	def initialize
