@@ -66,7 +66,12 @@ class TestStats < Test::Unit::TestCase
 	def test_collect_values_in_children_with_count_on_complex_object
 		set_completed = JSON.parse(IO.read(File.dirname(__FILE__)+'/node_setCompleted.json'))
 
-		puts "COLLECT VALUES: #{LightModels::Query.collect_values_with_count(set_completed)}"
+		map = LightModels::Query.collect_values_with_count(set_completed)
+		assert_equal 4,map.count
+		assert_equal 1,map['completed']
+		assert_equal 1,map[true]
+		assert_equal 1,map[false]
+		assert_equal 1,map['setCompleted']
 	end
 
 end
