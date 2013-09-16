@@ -18,10 +18,10 @@ class TermsBreaker
 		}
 	end
 
-	def self.from_context(context)
+	def self.from_context(language_specific_logic,context)
 		ser_context = LightModels::Serialization.jsonize_obj(context)
 		values_map = LightModels::Query.collect_values_with_count(ser_context)
-		instance = new		
+		instance = new(language_specific_logic)	
 		values_map.each do |value,c|
 			value = value.to_s.strip
 			if @language_specific_logic.terms_containing_value?(value)
