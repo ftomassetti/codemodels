@@ -1,11 +1,12 @@
 module LightModels
 
+module InfoExtraction
+
 class TermsBreaker
 
 	attr_accessor :sequences, :inv_sequences
 
-	def initialize(language_specific_logic)
-		@language_specific_logic = language_specific_logic
+	def initialize()
 		@sequences = Hash.new {|h,k| 
 			h[k] = Hash.new {|h,k| 
 				h[k]=0
@@ -24,8 +25,8 @@ class TermsBreaker
 		instance = new(language_specific_logic)	
 		values_map.each do |value,c|
 			value = value.to_s.strip
-			if @language_specific_logic.terms_containing_value?(value)
-				words = @language_specific_logic.to_words(value)				
+			if language_specific_logic.terms_containing_value?(value)
+				words = language_specific_logic.to_words(value)				
 				first_words = words[0...-1]
 				#puts "Recording that #{first_words[0]} is preceeded by #{:start} #{c} times"
 				instance.inv_sequences[words[0].downcase][:start] += c
@@ -101,6 +102,33 @@ class TermsBreaker
 		#puts "End term: #{end_term}"
 		[term] + group_words_in_terms(words[(end_term+1)..-1])
 	end
+
+end
+
+def self.terms_map(language_specific_logic,model_node,context=nil)
+	# context default to root
+	unless context
+		context = model_node
+		while context.eContainer
+			context = context.eContainer
+		end		
+	end
+
+	# look into context to see how frequent are certain series of words,
+	# frequent series are recognized as composed terms
+	terms_breaker = TermsBreaker.from_context(language_specific_logic,context)
+
+	ser_model_node = LightModels::Serialization.jsonize_obj(model_node)
+	values_map = LightModels::Query.collect_values_with_count(ser_model_node)
+	#puts "values #{values_map}"
+	terms_map = Hash.new {|h,k| h[k]=0}
+	values_map.each do |v,n|
+		terms_breaker.terms_in_value(v).each do |t|
+			terms_map[t] += n
+		end
+	end
+	terms_map
+end
 
 end
 
