@@ -25,13 +25,7 @@ def self.serialization_id(obj)
 end
 
 def self.qname(e_object)
-	if e_object.respond_to? :eClass 
-		e_class = e_object.eClass
-		e_package = e_class.ePackage
-		"#{e_package.nsURI}##{e_class.name}"
-	else
-		e_object.class.to_s
-	end
+	e_object.class.to_s
 end
 
 def self.jsonize_attr_value(map,e_object,e_attr)
@@ -145,25 +139,6 @@ def self.load_models_from_dir(dir,verbose=false,max=-1)
 		end
 	end
 	per_type_values_map
-end
-
-def self.eobject_to_model(root,adapters={})
-	@serialization_ids = {}
-	@next_serialization_id = 1
-
-	model = {}
-	external_elements = if root.eResource
-		root.eResource.contents.select {|e| e!=root}
-	else
-		[]
-	end
-
-	model['root'] = jsonize_obj(root,adapters)
-	model['external_elements'] = []
-	external_elements.each do |ee|
-		model['external_elements'] << jsonize_obj(ee)
-	end
-	model
 end
 
 def self.rgenobject_to_model(root,adapters={})

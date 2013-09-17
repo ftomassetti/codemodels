@@ -16,7 +16,7 @@ def test_rel_conts_on_complex_node
 			'relcont_exceptions',
 			'relcont_annotationsAndModifiers',
 			'relcont_statements'], 
-		LightModels::Query.rel_conts(set_completed)
+		LightModels::QuerySerialized.rel_conts(set_completed)
 end
 
 def test_rel_nonconts_on_complex_node
@@ -25,7 +25,7 @@ def test_rel_nonconts_on_complex_node
 	assert_equal [
 			'relnoncont_getterFor',
 			'relnoncont_setterFor'], 
-		LightModels::Query.rel_non_conts(set_completed)
+		LightModels::QuerySerialized.rel_non_conts(set_completed)
 end
 
 def test_attrs_on_complex_node
@@ -35,7 +35,7 @@ def test_attrs_on_complex_node
 			'attr_name',
 			'attr_getter',
 			'attr_setter'], 
-		LightModels::Query.attrs(set_completed)
+		LightModels::QuerySerialized.attrs(set_completed)
 end
 
 end
