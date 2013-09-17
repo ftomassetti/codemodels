@@ -1,4 +1,4 @@
-require 'emf_jruby'
+#require 'emf_jruby'
 
 module LightModels
 
