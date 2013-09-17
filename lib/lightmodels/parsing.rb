@@ -107,12 +107,26 @@ def populate_ref(node,ref,model)
 		end
 		if JavaCollection.assignable_from?(value.java_class)
 			log("\tvalue is a collection")
-			capitalized_name = ref.name.proper_capitalize	
+			capitalized_name = ref.name.proper_capitalize				
 			value.each do |el|
+				unless el.respond_to?(:parent)
+					class << el
+						def parent
+							node
+						end
+					end
+				end
 				model.send(:"add#{capitalized_name}",node_to_model(el))
 			end
 		else
 			log("\tvalue is not a collection")
+			unless value.respond_to?(:parent)
+				class << value
+					def parent
+						node
+					end
+				end
+			end
 			model.send(:"#{ref.name}=",node_to_model(value))
 		end
 	end
