@@ -22,7 +22,7 @@ class TermsBreaker
 
 	def self.from_context(language_specific_logic,context)
 		ser_context = LightModels::Serialization.jsonize_obj(context)
-		values_map = LightModels::Query.collect_values_with_count(ser_context)
+		values_map = LightModels::QuerySerialized.collect_values_with_count(ser_context)
 		instance = new(language_specific_logic)	
 		values_map.each do |value,c|
 			value = value.to_s.strip
@@ -108,7 +108,7 @@ end
 
 def self.values_map(model_node)
 	ser_model_node = LightModels::Serialization.jsonize_obj(model_node)
-	LightModels::Query.collect_values_with_count(ser_model_node)
+	LightModels::QuerySerialized.collect_values_with_count(ser_model_node)
 end
 
 def self.terms_map(language_specific_logic,model_node,context=nil)
