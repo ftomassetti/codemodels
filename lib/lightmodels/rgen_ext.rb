@@ -116,6 +116,13 @@ class RGen::MetamodelBuilder::MMBase
 			arr
 		end
 
+		def traverse(&op)
+			op.call(self)
+			children_deep.each do |c|
+				op.call(c)
+			end
+		end
+
 		def children_of_type(type)
 			children.select {|c| c and c.is_a?(type)}
 		end
