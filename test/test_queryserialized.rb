@@ -3,7 +3,7 @@ require 'test_helper'
 class TestStats < Test::Unit::TestCase
 
 def test_rel_conts_on_complex_node
-	set_completed = JSON.parse(IO.read(File.dirname(__FILE__)+'/node_setCompleted.json'))
+	set_completed = JSON.parse(IO.read(File.dirname(__FILE__)+'/data/node_setCompleted.json'))
 
 	assert_equal [
 			'relcont_layoutInformations',
@@ -19,7 +19,7 @@ def test_rel_conts_on_complex_node
 end
 
 def test_rel_nonconts_on_complex_node
-	set_completed = JSON.parse(IO.read(File.dirname(__FILE__)+'/node_setCompleted.json'))
+	set_completed = JSON.parse(IO.read(File.dirname(__FILE__)+'/data/node_setCompleted.json'))
 
 	assert_equal [
 			'relnoncont_getterFor',
@@ -28,7 +28,7 @@ def test_rel_nonconts_on_complex_node
 end
 
 def test_attrs_on_complex_node
-	set_completed = JSON.parse(IO.read(File.dirname(__FILE__)+'/node_setCompleted.json'))
+	set_completed = JSON.parse(IO.read(File.dirname(__FILE__)+'/data/node_setCompleted.json'))
 
 	assert_equal [
 			'attr_name',
