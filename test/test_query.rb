@@ -1,7 +1,4 @@
-require 'lightmodels'
-require 'test/unit'
-
-include LightModels
+require 'test_helper'
 
 class TestStats < Test::Unit::TestCase
 

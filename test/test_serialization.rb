@@ -1,8 +1,4 @@
-require 'lightmodels'
-require 'test/unit'
-require 'rgen/metamodel_builder'
-
-include LightModels
+require 'test_helper'
 
 class TestSerializationRgen < Test::Unit::TestCase
 

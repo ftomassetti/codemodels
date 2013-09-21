@@ -1,5 +1,4 @@
-require 'lightmodels'
-require 'test/unit'
+require 'test_helper'
 
 class TestStats < Test::Unit::TestCase
 
