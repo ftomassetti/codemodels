@@ -54,7 +54,7 @@ def self.generate_models_in_dir(src,dest,src_extension,dest_extension,max_nestin
 end
 
 def self.handle_model_per_file(src,error_handler=nil,model_handler,&models_generator)
-	puts "<Model from #{src}>"
+	puts "<Model from #{src}>" if LightModels::ModelBuilding.verbose
 	
 	if error_handler
 		begin
@@ -72,7 +72,7 @@ def self.handle_model_per_file(src,error_handler=nil,model_handler,&models_gener
 end
 
 def self.handle_serialized_model_per_file(src,error_handler=nil,model_handler,&models_generator)
-	puts "<Model from #{src}>"
+	puts "<Model from #{src}>" if LightModels::ModelBuilding.verbose
 	
 	if error_handler
 		begin
@@ -92,7 +92,7 @@ end
 
 def self.generate_model_per_file(src,dest,max_nesting=500,error_handler=nil,&models_generator)
 	if not File.exist? dest 
-		puts "<Model from #{src}>"
+		puts "<Model from #{src}>" if LightModels::ModelBuilding.verbose
 		
 		if error_handler
 			begin
