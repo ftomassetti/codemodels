@@ -88,8 +88,6 @@ end
 
 def populate_attr(node,att,model)	
 	value = get_feature_value(node,att)
-	#puts "Value got for #{node.class} #{att} : #{value.class}"
-	# nil are ignored
 	model.send(:"#{att.name}=",value) if value!=nil
 rescue Object => e
 	puts "Problem while populating attribute #{att.name} of #{model} from #{node}. Value: #{value}"
@@ -174,7 +172,6 @@ end
 def get_feature_value(node,feat)
 	adapter = adapter(node.class,feat)		
 	if adapter
-		#puts "Using adapter for #{node.class} #{feat_name}"
 		adapter[:adapter].call(node)
 	else
 		get_feature_value_through_getter(node,feat.name)
