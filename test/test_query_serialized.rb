@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TestStats < Test::Unit::TestCase
+class TestQuerySerialized < Test::Unit::TestCase
 
 def test_rel_conts_on_complex_node
 	set_completed = JSON.parse(IO.read(File.dirname(__FILE__)+'/data/node_setCompleted.json'))
