@@ -123,6 +123,31 @@ class RGen::MetamodelBuilder::MMBase
 			end
 		end
 
+		def collect_values_with_count
+			values = Hash.new {|h,k| h[k]=0}
+			self.class.ecore.eAllAttributes.each do |a|
+				v = self.send(:"#{a.name}")
+				if v!=nil
+					if a.many
+						v.each {|el| values[el]+=1}
+					else
+						values[v]+=1
+					end
+				end
+			end
+			values			
+		end
+
+		def collect_values_with_count_subtree
+			values = collect_values_with_count
+			children_deep.each do |c|
+				c.collect_values_with_count.each do |k,v|
+					values[k]+=v
+				end
+			end
+			values
+		end		
+
 		def children_of_type(type)
 			children.select {|c| c and c.is_a?(type)}
 		end

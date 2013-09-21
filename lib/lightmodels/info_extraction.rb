@@ -101,8 +101,7 @@ class TermsBreaker
 end
 
 def self.values_map(model_node)
-	ser_model_node = LightModels::Serialization.jsonize_obj(model_node)
-	LightModels::QuerySerialized.collect_values_with_count(ser_model_node)
+	model_node.collect_values_with_count_subtree
 end
 
 def self.terms_map(language_specific_logic,model_node,context=nil)
