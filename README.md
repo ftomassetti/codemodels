@@ -3,7 +3,7 @@ lightmodels
 
 lightmodels is a library to create and manipulate models. A serialization format (based on JSON) is defined.
 
-It is based on [RGen]((http://github.com/mthiede/rgen)) and it supportes the conversion of EMF models through [emf_jruby](http://github.com/ftomassetti/emf_jruby).
+It is based on [RGen](http://github.com/mthiede/rgen) and it supportes the conversion of EMF models through [emf_jruby](http://github.com/ftomassetti/emf_jruby).
 
 There are different gems which transform source code in models of the code. Currently they are:
 * [html-lightmodels](http://github.com/ftomassetti/html-lightmodels)
