@@ -29,7 +29,8 @@ module SerializationFunctionalities
 	end
 
 	def to_json(serialization_memory=SerializationMemory.new,adapters={})
-		map = { 'type' => qname, 'id' => serialization_memory.id(self) }
+		e_object = self
+		map = { 'type' => qname, 'id' => serialization_memory.id(e_object) }
 		e_class = e_object.class.ecore
 		e_class.eAllAttributes.each do |a|		
 			jsonize_attr_value(map,a)
@@ -55,15 +56,8 @@ module SerializationFunctionalities
 			map["attr_#{e_attr.name}"] = value
 		else
 			l = []
-			if value.respond_to? :size
-				dim = value.size-1
-				value.each do |e|
-					l << e
-				end
-			else
-				(0...(value.count)).each do |i|
-					l << value.get(i)
-				end
+			value.each do |e|
+				l << e
 			end
 			map["attr_#{e_attr.name}"] = l
 		end
@@ -79,13 +73,8 @@ module SerializationFunctionalities
 			map[propname] = jsonize_ref_single_el(value,e_ref.containment,adapters,serialization_memory)
 		else
 			l = []
-			(0...(value.size)).each do |i|
-				if value.is_a? Array
-					l << jsonize_ref_single_el(value.at(i),e_ref.containment,adapters,serialization_memory)
-				else
-					raise "Unexpected"
-				#	l << jsonize_ref_single_el(value.get(i),e_ref.containment,adapters,serialization_memory)
-				end
+			(0...(value.size)).each do |i|				
+				l << jsonize_ref_single_el(value.at(i),e_ref.containment,adapters,serialization_memory)
 			end
 			map[propname] = l
 		end
@@ -122,11 +111,11 @@ def self.rgenobject_to_model(root,adapters={})
 	model = {}
 	external_elements = []
 
-	sm = SerializationMemory.new
-	model['root'] = root.to_json(adapters,sm)
+	sm = SerializationFunctionalities::SerializationMemory.new
+	model['root'] = root.to_json(sm,adapters)
 	model['external_elements'] = []
 	external_elements.each do |ee|
-		model['external_elements'] << ee.to_json(adapters,sm)
+		model['external_elements'] << ee.to_json(sm,adapters)
 	end
 	model
 end

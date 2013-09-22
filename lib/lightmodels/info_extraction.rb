@@ -22,8 +22,7 @@ class TermsBreaker
 	end
 
 	def self.from_context(language_specific_logic,context)
-		ser_context = context.to_json
-		values_map = LightModels::QuerySerialized.collect_values_with_count(ser_context)
+		values_map = context.values_map
 		instance = new(language_specific_logic)	
 		values_map.each do |value,c|
 			value = value.to_s.strip

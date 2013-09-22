@@ -30,6 +30,10 @@ class TestSerializationRgen < Test::Unit::TestCase
 		has_attr 'number', Integer
 	end	
 
+	class StupidPhoneBook < RGen::MetamodelBuilder::MMBase
+		has_many_attr 'numbers', String
+	end
+
 	def test_to_model_with_rel_cont_single
 		a = Address.build number: 11
 		a.street = Street.build 'via Cassini'		 
@@ -59,6 +63,21 @@ class TestSerializationRgen < Test::Unit::TestCase
 		assert_equal 2, streets_serialized.count
 		assert_equal 'via Cassini',streets_serialized[0]['attr_name']
 		assert_equal 'piazza Emanuele Filiberto',streets_serialized[1]['attr_name']
+	end
+
+	def test_to_json_multi_attr
+		spb = StupidPhoneBook.new
+		spb.addNumbers '+49 0176 12345678'
+		spb.addNumbers '+39 389 4561234'
+
+		assert_equal({
+			"type"=>"TestSerializationRgen::StupidPhoneBook", 
+			"id"=>1, 
+			"attr_numbers"=>[
+				"+49 0176 12345678", 
+				"+39 389 4561234"
+			]},
+			spb.to_json)
 	end
 
 end
