@@ -45,58 +45,32 @@ end
 
 def self.handle_model_per_file(src,error_handler=nil,model_handler,&models_generator)
 	verbose_warn "<Model from #{src}>"
-	
-	if error_handler
-		begin
-			m = models_generator.call(src)
-			model_handler.call(src,m)
-		rescue Exception => e
-			error_handler.call(src,e)
-		rescue
-			error_handler.call(src,nil)
-		end
-	else
+	begin
 		m = models_generator.call(src)
 		model_handler.call(src,m)
-	end
-end
-
-def self.handle_serialized_model_per_file(src,error_handler=nil,model_handler,&models_generator)
-	verbose_warn "<Model from #{src}>"
-	
-	if error_handler
-		begin
-			m = models_generator.call(src)
-			model_handler.call(src,m)
-		rescue Exception => e
+	rescue => e
+		if error_handler
 			error_handler.call(src,e)
-		rescue
-			error_handler.call(src,nil)
+		else
+			raise e
 		end
-	else
-		m = models_generator.call(src)
-		model_handler.call(src,m)
 	end
 end
-
 
 def self.generate_model_per_file(src,dest,max_nesting=500,error_handler=nil,&models_generator)
 	if not File.exist? dest 
 		verbose_warn "<Model from #{src}>"
 		
-		if error_handler
-			begin
-				m = models_generator.call(src)
-				LightModels::Serialization.save_model(m,dest,max_nesting)
-			rescue Exception => e
-				error_handler.call(src,e)
-			rescue
-				error_handler.call(src,nil)
-			end
-		else
+		begin
 			m = models_generator.call(src)
 			LightModels::Serialization.save_model(m,dest,max_nesting)
-		end
+		rescue Exception => e
+			if error_handler
+				error_handler.call(src,e)
+			else
+				raise e
+			end
+		end		
 	else
 		verbose_warn "skipping #{src} because #{dest} found"
 	end
