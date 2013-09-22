@@ -48,7 +48,7 @@ end
 
 def test_empty_values_map
 	ctx = MyMetaClass.new
-	assert_equal({},InfoExtraction.values_map(ctx))
+	assert_equal({},ctx.values_map)
 end
 
 def test_simple_values_map
@@ -56,14 +56,14 @@ def test_simple_values_map
 	ctx.addA 'ciao_come'
 	ctx.addA '@@@'
 	ctx.addB 123.45
-	assert_equal({'ciao_come'=>1,'@@@'=>1,123.45=>1},InfoExtraction.values_map(ctx))
+	assert_equal({'ciao_come'=>1,'@@@'=>1,123.45=>1},ctx.values_map)
 end
 
 def test_empty_terms_map
 	n = MyMetaClass.new
 	lsl = MyDummyLanguageSpecificLogic.new
 	tb = TermsBreaker.new lsl
-	assert_equal({},InfoExtraction.terms_map(tb,n))
+	assert_equal({},n.terms_map(tb))
 end
 
 def test_simple_terms_map
@@ -73,7 +73,7 @@ def test_simple_terms_map
 	n.addA '@@@'
 	n.addB 123.45
 	lsl = MyDummyLanguageSpecificLogic.new
-	assert_equal({'ciao'=>1,'come'=>1,'@@@'=>1,'123.45'=>1},InfoExtraction.terms_map(lsl,n,ctx))
+	assert_equal({'ciao'=>1,'come'=>1,'@@@'=>1,'123.45'=>1},n.terms_map(lsl,ctx))
 end
 
 def test_terms_map_with_composition
@@ -84,7 +84,7 @@ def test_terms_map_with_composition
 	n.addA 'ciao_come_stai'
 	n.addA '@@@'
 	n.addB 123.45
-	assert_equal({'ciao_come'=>1,'stai'=>1,'@@@'=>1,'123.45'=>1},InfoExtraction.terms_map(lsl,n,ctx))
+	assert_equal({'ciao_come'=>1,'stai'=>1,'@@@'=>1,'123.45'=>1},n.terms_map(lsl,ctx))
 end
 
 end

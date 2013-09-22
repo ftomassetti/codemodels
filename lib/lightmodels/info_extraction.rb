@@ -1,5 +1,6 @@
-module LightModels
+require 'rgen/metamodel_builder'
 
+module LightModels
 module InfoExtraction
 
 class TermsBreaker
@@ -100,33 +101,40 @@ class TermsBreaker
 
 end
 
-def self.values_map(model_node)
-	model_node.collect_values_with_count_subtree
-end
+module InfoExtractionFunctionalities
 
-def self.terms_map(language_specific_logic,model_node,context=nil)
-	# context default to root
-	unless context
-		context = model_node
-		while context.eContainer
-			context = context.eContainer
-		end		
+	def values_map
+		collect_values_with_count_subtree
 	end
 
-	# look into context to see how frequent are certain series of words,
-	# frequent series are recognized as composed terms
-	terms_breaker = TermsBreaker.from_context(language_specific_logic,context)
-
-	values_map = values_map(model_node)
-	terms_map = Hash.new {|h,k| h[k]=0}
-	values_map.each do |v,n|
-		terms_breaker.terms_in_value(v).each do |t|
-			terms_map[t] += n
+	def terms_map(language_specific_logic,context=nil)
+		# context default to root
+		unless context
+			context = self
+			while context.eContainer
+				context = context.eContainer
+			end		
 		end
+
+		# look into context to see how frequent are certain series of words,
+		# frequent series are recognized as composed terms
+		terms_breaker = TermsBreaker.from_context(language_specific_logic,context)
+
+		v_map = self.values_map
+		terms_map = Hash.new {|h,k| h[k]=0}
+		v_map.each do |v,n|
+			terms_breaker.terms_in_value(v).each do |t|
+				terms_map[t] += n
+			end
+		end
+		terms_map
 	end
-	terms_map
-end
 
 end
 
+class ::RGen::MetamodelBuilder::MMBase
+	include InfoExtractionFunctionalities
+end
+
+end
 end

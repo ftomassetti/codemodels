@@ -1,5 +1,7 @@
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start do
+	add_filter "/test/"	
+end
 
 require 'lightmodels'
 require 'test/unit'
