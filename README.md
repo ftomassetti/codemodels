@@ -1,8 +1,16 @@
 lightmodels
 ===========
 
-lightmodels is a library to manipulate models and save them in a lightweight format (JSON is used for serialization).
+lightmodels is a library to create and manipulate models. A serialization format (based on JSON) is defined.
 
-EMF models and RGen models can be converted to lightmodels.
+It is based on RGen and it supportes the conversion of EMF models through emf-jruby.
 
-Other projects permit to obtain lightmodels representation of Ruby (ruby_to_emf_parser) and Java (java_model_jrb) code, Properties (properties_lightmodels) and XML (xml_lightmodels) files.
+There are different gems which transform source code in models of the code. Currently they are:
+* html-lightmodels
+* java-lightmodels
+* js-lightmodels
+* properties-lightmodels
+* ruby-lightmodels
+* xml-lightmodels
+
+Therefore it can be used to perform analysis on different languages.
