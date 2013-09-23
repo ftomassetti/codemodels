@@ -13,14 +13,14 @@ def self.verbose_warn(msg)
 end
 
 def self.handle_serialized_models_in_dir(src,src_extension,error_handler=nil,model_handler,&model_creator)
-	Dir["**/*.#{src_extension}"].each do |fd|
+	Dir["#{src}/**/*.#{src_extension}"].each do |fd|
 		verbose_warn "== #{fd} =="
 		handle_serialized_model_per_file(fd,error_handler,model_handler,&model_creator)		
 	end
 end
 
 def self.handle_models_in_dir(src,src_extension,error_handler=nil,model_handler,&model_creator)
-	Dir["**/*.#{src_extension}"].each do |fd|	
+	Dir["#{src}/**/*.#{src_extension}"].each do |fd|	
 		verbose_warn "== #{fd} =="			
 		handle_model_per_file(fd,error_handler,model_handler,&model_creator)		
 	end
@@ -28,7 +28,7 @@ end
 
 def self.generate_models_in_dir(src,dest,src_extension,dest_extension,max_nesting=500,error_handler=nil,&model_creator)
 	verbose_warn "== #{src} -> #{dest} =="
-	Dir["#{src}/*"].each do |fd|		
+	Dir["#{src}/**/*.#{src_extension}"].each do |fd|		
 		if File.directory? fd
 			basename = File.basename(fd)
 			generate_models_in_dir("#{src}/#{basename}","#{dest}/#{basename}",src_extension,dest_extension,max_nesting,error_handler,&model_creator)
