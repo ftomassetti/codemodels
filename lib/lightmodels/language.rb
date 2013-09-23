@@ -12,6 +12,11 @@ class Language
 		@extensions = []
 	end
 
+	def parse_file(path)
+		code = IO.read(path)
+		parse_code(code)
+	end
+
 end
 
 def self.register_language(language)
