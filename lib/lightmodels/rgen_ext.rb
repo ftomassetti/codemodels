@@ -69,7 +69,9 @@ class RGen::MetamodelBuilder::MMBase
 						if (self_value.is_a? Array) or (other_value.is_a? Array)
 							return false unless self_value.count==other_value.count
 							for i in 0..(self_value.count-1)
-								return false unless self_value[i].shallow_eql?(other_value[i])
+								unless self_value[i].shallow_eql?(other_value[i])
+									return false 
+								end
 							end
 						else  
 							if self_value==nil
