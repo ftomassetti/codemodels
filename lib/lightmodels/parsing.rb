@@ -118,6 +118,7 @@ def populate_ref(node,ref,model)
 		else
 			log("\tvalue is not a collection")
 			unless value.respond_to?(:parent)
+				value.class.__persistent__ = true
 				class << value
 					attr_accessor :parent
 				end
