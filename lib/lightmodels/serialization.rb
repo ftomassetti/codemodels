@@ -3,6 +3,7 @@
 
 require 'json'
 require 'fileutils'
+require 'rgen/metamodel_builder'
 
 module LightModels
 module Serialization
