@@ -11,6 +11,25 @@ class Parser
 
 end
 
+module LightModelsNode
+	attr_accessor :source
+	attr_accessor :language
+end
+
+class Position
+	attr_accessor :line, :column
+end
+
+class SourceInfo
+	attr_accessor :filename
+	attr_accessor :begin_pos, :end_pos
+
+	def to_code
+		raise "Unimplemented"
+	end
+
+end
+
 class Language
 	attr_reader :name
 	attr_reader :extensions
