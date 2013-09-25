@@ -53,29 +53,29 @@ def assert_ids(expected,actual)
 end
 
 def test_children
-	assert_ids [5], @d_1.children
-	assert_ids [], @d_2.children
-	assert_ids [], @d_3.children
-	assert_ids [], @c_4.children
-	assert_ids [], @c_5.children
-	assert_ids [], @c_6.children
-	assert_ids [], @b_7.children
-	assert_ids [2,3], @b_8.children
-	assert_ids [1], @b_9.children
-	assert_ids [6,8,9], @a_10.children
+	assert_ids [5], @d_1.all_children
+	assert_ids [], @d_2.all_children
+	assert_ids [], @d_3.all_children
+	assert_ids [], @c_4.all_children
+	assert_ids [], @c_5.all_children
+	assert_ids [], @c_6.all_children
+	assert_ids [], @b_7.all_children
+	assert_ids [2,3], @b_8.all_children
+	assert_ids [1], @b_9.all_children
+	assert_ids [6,8,9], @a_10.all_children
 end
 
 def test_children_deep
-	assert_ids [5], @d_1.children_deep
-	assert_ids [], @d_2.children_deep
-	assert_ids [], @d_3.children_deep
-	assert_ids [], @c_4.children_deep
-	assert_ids [], @c_5.children_deep
-	assert_ids [], @c_6.children_deep
-	assert_ids [], @b_7.children_deep
-	assert_ids [2,3], @b_8.children_deep
-	assert_ids [1,5], @b_9.children_deep
-	assert_ids [6,8,9,2,3,1,5], @a_10.children_deep
+	assert_ids [5], @d_1.all_children_deep
+	assert_ids [], @d_2.all_children_deep
+	assert_ids [], @d_3.all_children_deep
+	assert_ids [], @c_4.all_children_deep
+	assert_ids [], @c_5.all_children_deep
+	assert_ids [], @c_6.all_children_deep
+	assert_ids [], @b_7.all_children_deep
+	assert_ids [2,3], @b_8.all_children_deep
+	assert_ids [1,5], @b_9.all_children_deep
+	assert_ids [6,8,9,2,3,1,5], @a_10.all_children_deep
 end
 
 def test_traverse

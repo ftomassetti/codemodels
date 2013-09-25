@@ -95,7 +95,7 @@ class RGen::MetamodelBuilder::MMBase
 			send getter
 		end
 
-		def children
+		def all_children
 			arr = []
 			ecore = self.class.ecore
 			ecore.eAllReferences.select {|r| r.containment}.each do |ref|
@@ -105,21 +105,19 @@ class RGen::MetamodelBuilder::MMBase
 					res.each do |el|
 						arr << el unless res==nil
 					end
-					raise "problem..." unless arr.count==(d+res.count)
 				elsif res!=nil
 					d = arr.count
 					arr << res
-					raise "problem..." unless arr.count==(d+1)
 				end
 			end
 			arr
 		end
 
-		def children_deep
+		def all_children_deep
 			arr = []
-			children.each do |c|
+			all_children.each do |c|
 				arr << c
-				c.children_deep.each do |cc|
+				c.all_children_deep.each do |cc|
 					arr << cc
 				end
 			end			
@@ -128,7 +126,7 @@ class RGen::MetamodelBuilder::MMBase
 
 		def traverse(&op)
 			op.call(self)
-			children_deep.each do |c|
+			all_children_deep.each do |c|
 				op.call(c)
 			end
 		end
@@ -150,7 +148,7 @@ class RGen::MetamodelBuilder::MMBase
 
 		def collect_values_with_count_subtree
 			values = collect_values_with_count
-			children_deep.each do |c|
+			all_children_deep.each do |c|
 				c.collect_values_with_count.each do |k,v|
 					values[k]+=v
 				end
@@ -158,22 +156,22 @@ class RGen::MetamodelBuilder::MMBase
 			values
 		end		
 
-		def children_of_type(type)
-			children.select {|c| c and c.is_a?(type)}
+		def all_children_of_type(type)
+			all_children.select {|c| c and c.is_a?(type)}
 		end
 
-		def children_deep_of_type(type)
-			children_deep.select {|c| c and c.is_a?(type)}
+		def all_children_deep_of_type(type)
+			all_children_deep.select {|c| c and c.is_a?(type)}
 		end
 
 		def only_child_of_type(type)
-			selected = children_of_type(type)
+			selected = all_children_of_type(type)
 			raise "Exactly one child of type #{type} expected, #{selected.count} found on #{self}" unless selected.count==1
 			selected[0]
 		end
 
 		def only_child_deep_of_type(type)
-			selected = children_deep_of_type(type)
+			selected = all_children_deep_of_type(type)
 			raise "Exactly one child of type #{type} expected, #{selected.count} found on #{self}" unless selected.count==1
 			selected[0]
 		end
