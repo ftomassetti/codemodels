@@ -101,11 +101,15 @@ class RGen::MetamodelBuilder::MMBase
 			ecore.eAllReferences.select {|r| r.containment}.each do |ref|
 				res = self.send(ref.name.to_sym)
 				if ref.many
+					d = arr.count
 					res.each do |el|
-						arr << el
+						arr << el unless res==nil
 					end
-				elsif res
+					raise "problem..." unless arr.count==(d+res.count)
+				elsif res!=nil
+					d = arr.count
 					arr << res
+					raise "problem..." unless arr.count==(d+1)
 				end
 			end
 			arr
