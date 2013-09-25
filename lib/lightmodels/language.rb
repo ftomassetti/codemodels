@@ -58,7 +58,7 @@ end
 
 def self.parse_file(path)
 	l = @@languages.find {|l| l.can_parse?(path) }
-	raise "I don't know how to pars #{path}" unless l
+	raise "I don't know how to parse #{path}. Languages known: #{@@languages.map(&:name)}" unless l
 	l.parser.parse_file(path)
 end
 
