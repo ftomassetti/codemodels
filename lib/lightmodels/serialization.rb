@@ -29,9 +29,21 @@ module SerializationFunctionalities
 
 	end
 
-	def to_json(serialization_memory=SerializationMemory.new,adapters={})
+	def to_json(serialization_memory=SerializationMemory.new,adapters={},with_source_info=true)
 		e_object = self
 		map = { 'type' => qname, 'id' => serialization_memory.id(e_object) }
+		if with_source_info
+			if self.respond_to?(:source) && self.source
+				source_map = {}
+				if self.source.begin_pos
+					source_map['begin_pos'] = {'line'=> self.source.begin_pos.line, 'column'=>self.source.begin_pos.column}
+				end				
+				if self.source.end_pos
+					source_map['end_pos'] = {'line'=> self.source.end_pos.line, 'column'=>self.source.end_pos.column}
+				end								
+				map['source'] = source_map
+			end
+		end
 		e_class = e_object.class.ecore
 		e_class.eAllAttributes.each do |a|		
 			jsonize_attr_value(map,a)
