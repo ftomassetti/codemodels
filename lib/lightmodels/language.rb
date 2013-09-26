@@ -11,7 +11,7 @@ class Parser
 
 end
 
-module LightModelsNode
+module LightModelsReflectionInfo
 	attr_accessor :source
 	attr_accessor :language
 end
