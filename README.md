@@ -14,3 +14,10 @@ There are different gems which transform source code in models of the code. Curr
 * [xml-lightmodels](http://github.com/ftomassetti/xml-lightmodels)
 
 Therefore it can be used to perform analysis on different languages.
+
+Features
+========
+
+It handles also the case in which different languages are hosted in the same file (for example a Javascript script inside an HTML page).
+
+Most of the parsers permit also to associate each node with a precise point in the source code, so thath they could be used to implement layout-preserving refactoring.
