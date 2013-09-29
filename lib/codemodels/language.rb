@@ -1,4 +1,4 @@
-module LightModels
+module CodeModels
 
 @@languages = []
 
@@ -11,7 +11,7 @@ class Parser
 
 end
 
-module LightModelsReflectionInfo
+module CodeModelsReflectionInfo
 	attr_accessor :source
 	attr_accessor :language
 end

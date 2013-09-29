@@ -32,7 +32,7 @@ end
 
 class TestInfoExtaction < Test::Unit::TestCase
 
-include LightModels::InfoExtraction
+include CodeModels::InfoExtraction
 
 def test_breaker_void_context
 	tb = TermsBreaker.new(MyDummyLanguageSpecificLogic.new)

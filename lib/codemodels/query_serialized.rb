@@ -1,7 +1,7 @@
 # This module permits to manipulate Objects serialized
 # as Hash
 
-module LightModels
+module CodeModels
 
 module QuerySerialized
 

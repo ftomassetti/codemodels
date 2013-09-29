@@ -3,8 +3,8 @@ SimpleCov.start do
 	add_filter "/test/"	
 end
 
-require 'lightmodels'
+require 'codemodels'
 require 'test/unit'
 require 'rgen/metamodel_builder'
 
-include LightModels
+include CodeModels

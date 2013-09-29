@@ -1,6 +1,6 @@
-require 'lightmodels/serialization'
+require 'codemodels/serialization'
 
-module LightModels
+module CodeModels
 
 module ModelBuilding
 

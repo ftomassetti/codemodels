@@ -1,6 +1,6 @@
-require 'lightmodels/monkey_patching'
+require 'codemodels/monkey_patching'
 
-module LightModels
+module CodeModels
 
 class ParsingError < Exception
  	attr_reader :node

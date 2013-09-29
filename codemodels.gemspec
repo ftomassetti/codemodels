@@ -1,19 +1,19 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'lightmodels/version'
+require 'codemodels/version'
 
 Gem::Specification.new do |s|
   s.platform    = 'java'
-  s.name        = 'lightmodels'
-  s.version     = LightModels::VERSION
+  s.name        = 'codemodels'
+  s.version     = CodeModels::VERSION
   s.date        = '2013-08-27'
-  s.summary     = "Light format to store models"
-  s.description = "Light format to store models. Mostly they are stored in Hash and Array."
+  s.summary     = "Library to build models of code"
+  s.description = "Library to build models of code of different languages in a uniform way."
   s.authors     = ["Federico Tomassetti"]
   s.email       = 'f.tomassetti@gmail.com'
-  s.homepage    = 'https://github.com/ftomassetti/lightmodels'
-  s.license     = "APACHE2"
+  s.homepage    = 'https://github.com/ftomassetti/codemodels'
+  s.license     = "APACHE 2"
 
   s.files         = `git ls-files`.split($/)
   s.executables   = s.files.grep(%r{^bin/}) { |f| File.basename(f) }

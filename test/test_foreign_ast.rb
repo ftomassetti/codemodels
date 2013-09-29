@@ -2,13 +2,13 @@ require 'test_helper'
 
 class TestForeignAst < Test::Unit::TestCase
 
-include LightModels
+include CodeModels
 
-class MyLanguageAstNodeA < LightModelsAstNode
+class MyLanguageAstNodeA < CodeModelsAstNode
 	has_attr 'id', Integer
 end
 
-class MyLanguageAstNodeB < LightModelsAstNode
+class MyLanguageAstNodeB < CodeModelsAstNode
 	has_attr 'id', Integer
 end
 
@@ -20,7 +20,7 @@ def test_without_foreign_ast
 end
 
 def test_with_foreign_ast
-	LightModels.enable_foreign_asts(MyLanguageAstNodeB)
+	CodeModels.enable_foreign_asts(MyLanguageAstNodeB)
 	assert_equal 1, MyLanguageAstNodeB.ecore.eAllReferences.count
 	assert_equal 'foreign_asts',MyLanguageAstNodeB.ecore.eAllReferences[0].name
 end
