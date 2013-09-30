@@ -2,6 +2,14 @@ require 'codemodels/monkey_patching'
 
 module CodeModels
 
+class Parser
+
+	def parse_file(path)
+		parse_code(IO.read(path))
+	end
+
+end
+
 class ParsingError < Exception
  	attr_reader :node
  	attr_reader :line
