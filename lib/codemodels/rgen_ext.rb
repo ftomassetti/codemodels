@@ -95,10 +95,23 @@ class RGen::MetamodelBuilder::MMBase
 			send getter
 		end
 
+		def features_by_name(name)
+			features = []
+			ecore = self.class.ecore
+			ecore.eAllAttributes.select {|a| a.name==name}.each do |a|
+				features << a
+			end			
+			ecore.eAllReferences.select {|r| r.name==name}.each do |r|
+				features << r
+			end
+			features
+		end
+
 		def all_children
 			arr = []
 			ecore = self.class.ecore
 			ecore.eAllReferences.select {|r| r.containment}.each do |ref|
+				raise "Too many features with name #{ref.name}" if features_by_name(ref.name).count!=1
 				res = self.send(ref.name.to_sym)
 				if ref.many
 					d = arr.count
