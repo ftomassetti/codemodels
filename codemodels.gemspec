@@ -7,13 +7,12 @@ Gem::Specification.new do |s|
   s.platform    = 'java'
   s.name        = 'codemodels'
   s.version     = CodeModels::VERSION
-  s.date        = '2013-08-27'
   s.summary     = "Library to build models of code"
   s.description = "Library to build models of code of different languages in a uniform way."
   s.authors     = ["Federico Tomassetti"]
   s.email       = 'f.tomassetti@gmail.com'
   s.homepage    = 'https://github.com/ftomassetti/codemodels'
-  s.license     = "APACHE 2"
+  s.license     = "Apache v2"
 
   s.files         = `git ls-files`.split($/)
   s.executables   = s.files.grep(%r{^bin/}) { |f| File.basename(f) }

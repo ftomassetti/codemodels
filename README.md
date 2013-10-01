@@ -7,10 +7,10 @@ It is based on [RGen](http://github.com/mthiede/rgen) and it supportes the conve
 
 There are different gems which transform source code in models of the code. Currently they are:
 * [html-lightmodels](http://github.com/ftomassetti/html-lightmodels)
-* [java-lightmodels](http://github.com/ftomassetti/java-lightmodels)
+* [codemodels-java](http://github.com/ftomassetti/codemodels-java)
 * [js-lightmodels](http://github.com/ftomassetti/js-lightmodels)
 * [properties-lightmodels](http://github.com/ftomassetti/properties-lightmodels)
-* [ruby-lightmodels](http://github.com/ftomassetti/ruby-lightmodels)
+* [codemodels-ruby](http://github.com/ftomassetti/codemodels-ruby)
 * [xml-lightmodels](http://github.com/ftomassetti/xml-lightmodels)
 
 Therefore it can be used to perform analysis on different languages.
