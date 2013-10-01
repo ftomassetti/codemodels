@@ -110,17 +110,23 @@ class RGen::MetamodelBuilder::MMBase
 		def all_children
 			arr = []
 			ecore = self.class.ecore
+			# Awful hack to forbid the same reference is visited twice when
+			# two references with the same name are found
+			already_used_references = []
 			ecore.eAllReferences.select {|r| r.containment}.each do |ref|
-				raise "Too many features with name #{ref.name}. Count: #{features_by_name(ref.name).count}" if features_by_name(ref.name).count!=1
-				res = self.send(ref.name.to_sym)
-				if ref.many
-					d = arr.count
-					res.each do |el|
-						arr << el unless res==nil
+				#raise "Too many features with name #{ref.name}. Count: #{features_by_name(ref.name).count}" if features_by_name(ref.name).count!=1
+				unless already_used_references.include?(ref.name)
+					res = self.send(ref.name.to_sym)
+					if ref.many
+						d = arr.count
+						res.each do |el|
+							arr << el unless res==nil
+						end
+					elsif res!=nil
+						d = arr.count
+						arr << res
 					end
-				elsif res!=nil
-					d = arr.count
-					arr << res
+					already_used_references << ref.name
 				end
 			end
 			arr
