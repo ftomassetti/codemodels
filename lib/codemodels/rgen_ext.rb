@@ -111,7 +111,7 @@ class RGen::MetamodelBuilder::MMBase
 			arr = []
 			ecore = self.class.ecore
 			ecore.eAllReferences.select {|r| r.containment}.each do |ref|
-				raise "Too many features with name #{ref.name}" if features_by_name(ref.name).count!=1
+				raise "Too many features with name #{ref.name}. Count: #{features_by_name(ref.name).count}" if features_by_name(ref.name).count!=1
 				res = self.send(ref.name.to_sym)
 				if ref.many
 					d = arr.count
