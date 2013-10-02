@@ -197,6 +197,33 @@ class RGen::MetamodelBuilder::MMBase
 
 	end
 
+	module HostLineAddOn
+
+		def host_start_line
+			line_referred_to_host(self,self.source.begin_pos.line)				
+		end
+
+		def host_end_line
+			line_referred_to_host(self,self.source.end_pos.line)
+		end
+
+		private
+
+		def offset_referred_to_host(node)
+			base = node.eContainer ? offset_referred_to_host(node.eContainer) : 0
+			if node.eContainingFeature && node.eContainingFeature==:foreign_asts
+				base+node.eContainer.source.begin_pos.line-1
+			else
+				base
+			end
+		end
+
+		def line_referred_to_host(node,line)
+			offset_referred_to_host(node)+line
+		end
+
+	end
+
 	# module FixingCollidingFeatureAddOn
 	# 	def has_attr(role, target_class=nil, raw_props={}, &block)
 	# 		raise "Role already used #{role}" if self.ecore.eAllAttributes.find {|a| a.name==role.to_s}
@@ -227,4 +254,5 @@ class RGen::MetamodelBuilder::MMBase
 	#include FixingCollidingFeatureAddOn
 
 	include SingletonAddOn
+	include HostLineAddOn
 end
