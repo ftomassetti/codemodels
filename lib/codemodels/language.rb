@@ -30,8 +30,6 @@ class SourceInfo
 
 end
 
-end
-
 class Language
 	attr_reader :name
 	attr_reader :extensions
