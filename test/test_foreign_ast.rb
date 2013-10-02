@@ -20,7 +20,7 @@ def test_without_foreign_ast
 end
 
 def test_with_foreign_ast
-	CodeModels.enable_foreign_asts(MyLanguageAstNodeB)
+	2.times {CodeModels.enable_foreign_asts(MyLanguageAstNodeB)}
 	assert_equal 1, MyLanguageAstNodeB.ecore.eAllReferences.count
 	assert_equal 'foreign_asts',MyLanguageAstNodeB.ecore.eAllReferences[0].name
 end
