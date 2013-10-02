@@ -112,10 +112,6 @@ module SerializationFunctionalities
 
 end
 
-class CodeModelsAstNode
-	include SerializationFunctionalities
-end
-
 def self.load_file(path,max_nesting=500)
 	JSON.parse(File.read(path),{max_nesting: max_nesting})
 end
@@ -148,4 +144,9 @@ def self.save_as_model(root,model_path)
 end
 
 end # module
+
+class CodeModelsAstNode
+	include Serialization::SerializationFunctionalities
+end
+
 end # module
