@@ -3,13 +3,48 @@ require 'codemodels/language'
 
 module CodeModels
 
-class EmbeddedArtifact
-	attr_accessor :host_artifact
-	attr_accessor :position_in_host
+class AbstractArtifact
+
+	def point_to_absolute(point)
+		offset = host_artifact.absolute_start
+		p = SourcePoint.new
+		p.line   = point.line  +offset.line-1
+		p.column = point.column
+		p.colum  += offset.column-1 if point.line==1
+		p
+	end
+
+	def position_to_absolute(position)
+		pos = SourcePosition.new
+		pos.start_point = point_to_absolute(position.start_point)
+		pos.end_point = point_to_absolute(position.end_point)
+		pos
+	end
+
 end
 
-class FileArtifact
+class EmbeddedArtifact < AbstractArtifact
+	attr_accessor :host_artifact
+	attr_accessor :position_in_host
+
+	def absolute_start
+		p = host_artifact.absolute_start
+		p.line   += position_in_host.begin_point.line
+		p.column += position_in_host.begin_point.column
+		p
+	end
+
+end
+
+class FileArtifact < AbstractArtifact
 	attr_accessor :filename
+
+	def absolute_start
+		sp = SourcePoint.new
+		sp.line   = 1
+		sp.column = 1
+		sp
+	end
 end
 
 class SourcePoint
@@ -45,10 +80,20 @@ module ForeignAstExtensions
 	attr_accessor :foreign_asts
 end
 
+module HostPositionExtensions
+
+	def absolute_position
+		artifact = source.artifact
+		artifact.absolute_position(source.position)
+	end
+
+end
+
 # All AST nodes built with CodeModels should derive from this one
 class CodeModelsAstNode < RGen::MetamodelBuilder::MMBase
 	include SourceInfoExtensions
 	include ForeignAstExtensions
+	include HostPositionExtensions
 end
 
 end
