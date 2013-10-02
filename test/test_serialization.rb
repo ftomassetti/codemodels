@@ -1,15 +1,28 @@
 require 'test_helper'
 
-class TestSerializationRgen < Test::Unit::TestCase
+class TestSerialization < Test::Unit::TestCase
 
-	class Person < RGen::MetamodelBuilder::MMBase
+	class Person < CodeModelsAstNode
 		has_attr 'name', String
+	end
+
+	class Street < CodeModelsAstNode
+		has_attr 'name', String
+	end
+
+	class Address < CodeModelsAstNode
+		contains_one_uni 'street', Street
+		has_attr 'number', Integer
+	end	
+
+	class StupidPhoneBook < CodeModelsAstNode
+		has_many_attr 'numbers', String
 	end
 
 	def test_to_model_with_single_obj
 		p = Person.build 'pippo'
 		m = Serialization.rgenobject_to_model(p)
-
+		
 		assert_equal 1,m['root']['id']
 		assert_equal 0,m['external_elements'].count
 	end
@@ -19,19 +32,6 @@ class TestSerializationRgen < Test::Unit::TestCase
 		m = Serialization.rgenobject_to_model(p)
 
 		assert_equal 'pippo',m['root']['attr_name']
-	end
-
-	class Street < RGen::MetamodelBuilder::MMBase
-		has_attr 'name', String
-	end
-
-	class Address < RGen::MetamodelBuilder::MMBase
-		contains_one_uni 'street', Street
-		has_attr 'number', Integer
-	end	
-
-	class StupidPhoneBook < RGen::MetamodelBuilder::MMBase
-		has_many_attr 'numbers', String
 	end
 
 	def test_to_model_with_rel_cont_single
@@ -44,11 +44,11 @@ class TestSerializationRgen < Test::Unit::TestCase
 		assert_equal 'via Cassini',street_serialized['attr_name']
 	end
 
-	class Street < RGen::MetamodelBuilder::MMBase
+	class Street < CodeModelsAstNode
 		has_attr 'name', String
 	end
 
-	class CityMap < RGen::MetamodelBuilder::MMBase
+	class CityMap < CodeModelsAstNode
 		contains_many_uni 'streets', Street
 	end	
 
@@ -71,7 +71,7 @@ class TestSerializationRgen < Test::Unit::TestCase
 		spb.addNumbers '+39 389 4561234'
 
 		assert_equal({
-			"type"=>"TestSerializationRgen::StupidPhoneBook", 
+			"type"=>"TestSerialization::StupidPhoneBook", 
 			"id"=>1, 
 			"attr_numbers"=>[
 				"+49 0176 12345678", 

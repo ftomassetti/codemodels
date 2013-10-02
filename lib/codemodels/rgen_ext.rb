@@ -224,35 +224,34 @@ class RGen::MetamodelBuilder::MMBase
 
 	end
 
-	# module FixingCollidingFeatureAddOn
-	# 	def has_attr(role, target_class=nil, raw_props={}, &block)
-	# 		raise "Role already used #{role}" if self.ecore.eAllAttributes.find {|a| a.name==role.to_s}
-	# 		raise "Role already used #{role}" if self.ecore.eAllReferences.find {|r| r.name==role.to_s}
-	# 		super(role,target_class,raw_props,block)
-	# 	end
-	# 	def has_many_attr(role, target_class=nil, raw_props={}, &block)
-	# 		raise "Role already used #{role}" if self.ecore.eAllAttributes.find {|a| a.name==role.to_s}
-	# 		raise "Role already used #{role}" if self.ecore.eAllReferences.find {|r| r.name==role.to_s}
-	# 		super(role,target_class,raw_props,block)
-	# 	end
-	# 	def contains_many_uni(role, target_class=nil, raw_props={}, &block)
-	# 		raise "Role already used #{role}" if self.ecore.eAllAttributes.find {|a| a.name==role.to_s}
-	# 		raise "Role already used #{role}" if self.ecore.eAllReferences.find {|r| r.name==role.to_s}
-	# 		super(role,target_class,raw_props,block)
-	# 	end
-	# 	def contains_one_uni(role, target_class=nil, raw_props={}, &block) 
-	# 		raise "Role already used #{role}" if self.ecore.eAllAttributes.find {|a| a.name==role.to_s}
-	# 		raise "Role already used #{role}" if self.ecore.eAllReferences.find {|r| r.name==role.to_s}
-	# 		super(role,target_class,raw_props,block)
-	# 	end
-	# end
+	module FixingCollidingFeatureAddOn
+		def has_attr(role, target_class=nil, raw_props={}, &block)
+			raise "Role already used #{role}" if self.ecore.eAllAttributes.find {|a| a.name==role.to_s}
+			raise "Role already used #{role}" if self.ecore.eAllReferences.find {|r| r.name==role.to_s}
+			super(role,target_class,raw_props,block)
+		end
+		def has_many_attr(role, target_class=nil, raw_props={}, &block)
+			raise "Role already used #{role}" if self.ecore.eAllAttributes.find {|a| a.name==role.to_s}
+			raise "Role already used #{role}" if self.ecore.eAllReferences.find {|r| r.name==role.to_s}
+			super(role,target_class,raw_props,block)
+		end
+		def contains_many_uni(role, target_class=nil, raw_props={}, &block)
+			raise "Role already used #{role}" if self.ecore.eAllAttributes.find {|a| a.name==role.to_s}
+			raise "Role already used #{role}" if self.ecore.eAllReferences.find {|r| r.name==role.to_s}
+			super(role,target_class,raw_props,block)
+		end
+		def contains_one_uni(role, target_class=nil, raw_props={}, &block) 
+			raise "Role already used #{role}" if self.ecore.eAllAttributes.find {|a| a.name==role.to_s}
+			raise "Role already used #{role}" if self.ecore.eAllReferences.find {|r| r.name==role.to_s}
+			super(role,target_class,raw_props,block)
+		end
+	end
 
 	class << self
 		include ClassAddOn
 	end
 
-	#include FixingCollidingFeatureAddOn
-
+	include FixingCollidingFeatureAddOn
 	include SingletonAddOn
 	include HostLineAddOn
 end

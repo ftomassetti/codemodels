@@ -1,4 +1,5 @@
 require 'rgen/metamodel_builder'
+require 'codemodels/metamodel'
 
 module CodeModels
 module InfoExtraction
@@ -131,9 +132,10 @@ module InfoExtractionFunctionalities
 
 end
 
-class ::RGen::MetamodelBuilder::MMBase
-	include InfoExtractionFunctionalities
 end
 
+class CodeModelsAstNode
+	include InfoExtraction::InfoExtractionFunctionalities
 end
+
 end

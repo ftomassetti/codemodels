@@ -25,7 +25,7 @@ class MyDummyLanguageSpecificLogic
 
 end
 
-class MyMetaClass < RGen::MetamodelBuilder::MMBase
+class MyMetaClass < CodeModelsAstNode
 	has_many_attr 'a',String
 	has_many_attr 'b',Float
 end
