@@ -63,10 +63,10 @@ class SourceInfo
 		raise "Unimplemented"
 	end
 
-	def set_start_point(data)
+	def set_begin_point(data)
 		point = data_to_point(data)
 		position = SourcePosition.new unless position
-		position.start_point = point
+		position.begin_point = point
 	end
 
 	def set_end_point(data)
@@ -98,9 +98,9 @@ module SourceInfoExtensions
 	attr_accessor :language
 	attr_accessor :source	
 
-	def set_start_point(data)
+	def set_begin_point(data)
 		source = SourceInfo.new unless source
-		source.set_start_point(data)
+		source.set_begin_point(data)
 	end
 
 	def set_end_point(data)
