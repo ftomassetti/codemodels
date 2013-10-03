@@ -98,9 +98,9 @@ module SourceInfoExtensions
 	attr_accessor :language
 	attr_accessor :source	
 
-	def set_begin_point(data)
+	def set_start_point(data)
 		source = SourceInfo.new unless source
-		source.set_begin_point(data)
+		source.set_start_point(data)
 	end
 
 	def set_end_point(data)
@@ -114,7 +114,15 @@ end
 # or an Html file can contain CSS or Javascript code.
 # In those cases an AST is inserted inside the AST of the host language.
 module ForeignAstExtensions
-	attr_accessor :foreign_asts
+
+	def addForeign_asts(foreign_ast)
+		foreign_asts << foreign_ast
+	end
+
+	def foreign_asts
+		@foreign_asts=[] unless @foreign_asts
+		@foreign_asts
+	end
 end
 
 module HostPositionExtensions
