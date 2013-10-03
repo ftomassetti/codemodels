@@ -6,7 +6,7 @@ end
 
 def self.all_children_deep_also_foreign(node)
 	arr = []
-	all_children_also_foreign(node) do |c|
+	all_children_also_foreign(node).each do |c|
 		arr << c
 		arr.concat(all_children_deep_also_foreign(c))
 	end			
