@@ -97,6 +97,16 @@ end
 module SourceInfoExtensions
 	attr_accessor :language
 	attr_accessor :source	
+
+	def set_start_point(data)
+		source = SourceInfo.new unless source
+		source.set_start_point(data)
+	end
+
+	def set_end_point(data)
+		source = SourceInfo.new unless source
+		source.set_end_point(data)		
+	end
 end
 
 # Inside an host language snippet of other languages can be hosted
