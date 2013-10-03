@@ -65,14 +65,14 @@ class SourceInfo
 
 	def set_begin_point(data)
 		point = data_to_point(data)
-		position = SourcePosition.new unless position
-		position.begin_point = point
+		@position = SourcePosition.new unless @position
+		@position.begin_point = point
 	end
 
 	def set_end_point(data)
 		point = data_to_point(data)
-		position = SourcePosition.new unless position
-		position.end_point = point		
+		@position = SourcePosition.new unless @position
+		@position.end_point = point		
 	end
 
 	private
@@ -99,13 +99,13 @@ module SourceInfoExtensions
 	attr_accessor :source	
 
 	def set_start_point(data)
-		source = SourceInfo.new unless source
-		source.set_start_point(data)
+		@source = SourceInfo.new unless @source
+		@source.set_start_point(data)
 	end
 
 	def set_end_point(data)
-		source = SourceInfo.new unless source
-		source.set_end_point(data)		
+		@source = SourceInfo.new unless @source
+		@source.set_end_point(data)		
 	end
 end
 
