@@ -63,6 +63,33 @@ class SourceInfo
 		raise "Unimplemented"
 	end
 
+	def set_start_point(data)
+		point = data_to_point(data)
+		position = SourcePosition.new unless position
+		position.start_point = point
+	end
+
+	def set_end_point(data)
+		point = data_to_point(data)
+		position = SourcePosition.new unless position
+		position.end_point = point		
+	end
+
+	private
+
+	def data_to_point(data)
+		if data.is_a? Hash
+			point = SourcePoint.new
+			point.line   = data[:line]
+			point.column = data[:column]
+		elsif data.is_a? SourcePoint
+			point = data
+		else
+			raise "Expected Hash or SourcePoint"
+		end
+		point
+	end
+
 end	
 
 # This extension give all the information about the source
