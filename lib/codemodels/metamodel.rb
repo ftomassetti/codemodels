@@ -75,6 +75,14 @@ class SourceInfo
 		@position.end_point = point		
 	end
 
+	def begin_line
+		position.begin_point.line
+	end
+
+	def end_line
+		position.end_point.line
+	end	
+
 	private
 
 	def data_to_point(data)
