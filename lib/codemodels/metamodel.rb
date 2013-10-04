@@ -123,8 +123,11 @@ end
 # In those cases an AST is inserted inside the AST of the host language.
 module ForeignAstExtensions
 
+	attr_accessor :foreign_container
+
 	def addForeign_asts(foreign_ast)
 		foreign_asts << foreign_ast
+		foreign_ast.foreign_container = self
 	end
 
 	def foreign_asts
