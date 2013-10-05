@@ -2,21 +2,21 @@ require 'test_helper'
 
 class TestRgenExt < Test::Unit::TestCase
 
-class C < RGen::MetamodelBuilder::MMBase
+class C < CodeModels::CodeModelsAstNode
 	has_attr 'id',Integer
 end
 
-class D < RGen::MetamodelBuilder::MMBase
+class D < CodeModels::CodeModelsAstNode
 	has_attr 'id',Integer
 	contains_one_uni  'c', C
 end
 
-class B < RGen::MetamodelBuilder::MMBase
+class B < CodeModels::CodeModelsAstNode
 	has_attr 'id',Integer
 	contains_many_uni 'ds', D
 end
 
-class A < RGen::MetamodelBuilder::MMBase
+class A < CodeModels::CodeModelsAstNode
 	has_attr 'id',Integer
 	contains_many_uni 'bs', B
 	contains_one_uni  'c', C
