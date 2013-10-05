@@ -6,11 +6,11 @@ module CodeModels
 class AbstractArtifact
 
 	def point_to_absolute(point)
-		offset = host_artifact.absolute_start
+		offset = absolute_start
 		p = SourcePoint.new
-		p.line   = point.line  +offset.line-1
+		p.line   = point.line  + offset.line - 1
 		p.column = point.column
-		p.colum  += offset.column-1 if point.line==1
+		p.column  += offset.column-1 if point.line==1
 		p
 	end
 
@@ -30,7 +30,14 @@ class EmbeddedArtifact < AbstractArtifact
 	def absolute_start
 		p = host_artifact.absolute_start
 		p.line   += position_in_host.begin_point.line-1
-		p.column += position_in_host.begin_point.column-1
+		if position_in_host.begin_point.line==1			
+			# if I am on the first line of my "host", its column
+			# matters because there are not newlines to reset the column
+			# counter
+			p.column += position_in_host.begin_point.column-1 
+		else
+			p.column = position_in_host.begin_point.column
+		end
 		p
 	end
 
@@ -49,6 +56,11 @@ end
 
 class SourcePoint
 	attr_accessor :line, :column
+
+	def initialize(line=nil,column=nil)
+		@line   = line
+		@column = column
+	end
 
 	def eql?(other)
 		other.line==line && other.column==column
