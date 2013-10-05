@@ -29,8 +29,8 @@ class EmbeddedArtifact < AbstractArtifact
 
 	def absolute_start
 		p = host_artifact.absolute_start
-		p.line   += position_in_host.begin_point.line
-		p.column += position_in_host.begin_point.column
+		p.line   += position_in_host.begin_point.line-1
+		p.column += position_in_host.begin_point.column-1
 		p
 	end
 
@@ -49,10 +49,28 @@ end
 
 class SourcePoint
 	attr_accessor :line, :column
+
+	def eql?(other)
+		other.line==line && other.column==column
+	end
+
+	def ==(other)
+		self.eql?(other)
+	end
 end
 
 class SourcePosition
 	attr_accessor :begin_point, :end_point
+
+	def begin_line=(line)
+		@begin_point=SourcePoint.new unless @begin_point
+		@begin_point.line = line
+	end
+
+	def begin_column=(column)
+		@begin_point=SourcePoint.new unless @begin_point
+		@begin_point.column = column
+	end
 end
 
 class SourceInfo
@@ -63,13 +81,13 @@ class SourceInfo
 		raise "Unimplemented"
 	end
 
-	def set_begin_point(data)
+	def begin_point=(data)
 		point = data_to_point(data)
 		@position = SourcePosition.new unless @position
 		@position.begin_point = point
 	end
 
-	def set_end_point(data)
+	def end_point=(data)
 		point = data_to_point(data)
 		@position = SourcePosition.new unless @position
 		@position.end_point = point		

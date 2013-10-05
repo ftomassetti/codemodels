@@ -28,7 +28,7 @@ class CodeModelsAstNode
 				end
 			end
 			if also_foreign
-				arr.concat(node.foreign_asts)
+				arr.concat(self.foreign_asts)
 			end
 			arr
 		end

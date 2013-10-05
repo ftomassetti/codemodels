@@ -39,25 +39,25 @@ def setup
 end
 
 def test_all_children_also_foreign
-	assert_equal [@b4,@c1,@c2],	CodeModels.all_children_also_foreign(@a1)
-	assert_equal [@b2,@b3],		CodeModels.all_children_also_foreign(@b1)
-	assert_equal [],			CodeModels.all_children_also_foreign(@b2)
-	assert_equal [],			CodeModels.all_children_also_foreign(@b3)
-	assert_equal [@b5],			CodeModels.all_children_also_foreign(@b4)
-	assert_equal [],			CodeModels.all_children_also_foreign(@b5)
-	assert_equal [@b1],			CodeModels.all_children_also_foreign(@c1)
-	assert_equal [],			CodeModels.all_children_also_foreign(@c2)
+	assert_equal [@b4,@c1,@c2],	@a1.all_children_also_foreign
+	assert_equal [@b2,@b3],		@b1.all_children_also_foreign
+	assert_equal [],			@b2.all_children_also_foreign
+	assert_equal [],			@b3.all_children_also_foreign
+	assert_equal [@b5],			@b4.all_children_also_foreign
+	assert_equal [],			@b5.all_children_also_foreign
+	assert_equal [@b1],			@c1.all_children_also_foreign
+	assert_equal [],			@c2.all_children_also_foreign
 end
 
 def test_all_children_deep_also_foreign
-	assert_equal [@b4,@b5,@c1,@b1,@b2,@b3,@c2],	CodeModels.all_children_deep_also_foreign(@a1)
-	assert_equal [@b2,@b3],						CodeModels.all_children_deep_also_foreign(@b1)
-	assert_equal [],							CodeModels.all_children_deep_also_foreign(@b2)
-	assert_equal [],							CodeModels.all_children_deep_also_foreign(@b3)
-	assert_equal [@b5],							CodeModels.all_children_deep_also_foreign(@b4)
-	assert_equal [],							CodeModels.all_children_deep_also_foreign(@b5)
-	assert_equal [@b1,@b2,@b3],					CodeModels.all_children_deep_also_foreign(@c1)
-	assert_equal [],							CodeModels.all_children_deep_also_foreign(@c2)
+	assert_equal [@b4,@b5,@c1,@b1,@b2,@b3,@c2],	@a1.all_children_deep_also_foreign
+	assert_equal [@b2,@b3],						@b1.all_children_deep_also_foreign
+	assert_equal [],							@b2.all_children_deep_also_foreign
+	assert_equal [],							@b3.all_children_deep_also_foreign
+	assert_equal [@b5],							@b4.all_children_deep_also_foreign
+	assert_equal [],							@b5.all_children_deep_also_foreign
+	assert_equal [@b1,@b2,@b3],					@c1.all_children_deep_also_foreign
+	assert_equal [],							@c2.all_children_deep_also_foreign
 end
 
 def traverse_also_foreign
