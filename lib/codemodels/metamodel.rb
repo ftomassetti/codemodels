@@ -16,7 +16,7 @@ class AbstractArtifact
 
 	def position_to_absolute(position)
 		pos = SourcePosition.new
-		pos.start_point = point_to_absolute(position.start_point)
+		pos.begin_point = point_to_absolute(position.begin_point)
 		pos.end_point = point_to_absolute(position.end_point)
 		pos
 	end
@@ -74,6 +74,11 @@ end
 class SourcePosition
 	attr_accessor :begin_point, :end_point
 
+	def initialize(begin_point=nil,end_point=nil)
+		@begin_point = begin_point
+		@end_point = end_point
+	end
+
 	def begin_line=(line)
 		@begin_point=SourcePoint.new unless @begin_point
 		@begin_point.line = line
@@ -82,6 +87,14 @@ class SourcePosition
 	def begin_column=(column)
 		@begin_point=SourcePoint.new unless @begin_point
 		@begin_point.column = column
+	end
+
+	def eql?(other)
+		other.begin_point==begin_point && other.end_point==end_point
+	end
+
+	def ==(other)
+		self.eql?(other)
 	end
 end
 
