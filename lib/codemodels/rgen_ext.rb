@@ -12,17 +12,12 @@ class RGen::MetamodelBuilder::MMBase
 				values.each do |k,v|
 					attribute = self.ecore.eAllAttributes.find {|x| x.name==k.to_s}
 					reference = self.ecore.eAllReferences.find {|x| x.name==k.to_s}
-					raise EMF::UnexistingFeature.new(k.to_s) unless (attribute or reference)
+					raise "UnexistingFeature #{k}" unless (attribute or reference)
 					setter = (k.to_s+'=').to_sym
 					instance.send setter, v
 				end
 			else
-				has_dynamic = false
-				self.ecore.eAllAttributes.each {|a| has_dynamic|=a.name=='dynamic'}
-				d = 0
-				d = 1 if has_dynamic
-
-				raise EMF::SingleAttributeRequired.new(self.ecore.name,self.ecore.eAllAttributes) if self.ecore.eAllAttributes.count!=1+d
+				raise "SingleAttributeRequired" if self.ecore.eAllAttributes.count!=1
 				attribute = self.ecore.eAllAttributes[0]
 				set_attr(instance,attribute,values)
 			end
@@ -45,12 +40,9 @@ class RGen::MetamodelBuilder::MMBase
 			return false unless self.class==other.class
 			self.class.ecore.eAllAttributes.each do |attrib|
 				raise "Attrib <nil> for class #{self.class.ecore.name}" unless attrib
-				if attrib.name != 'dynamic' # I have to understand this...
-					self_value  = self.get(attrib)
-					other_value = other.get(attrib)
-					#puts "returning false on #{attrib.name}" unless self_value.eql?(other_value)
-					return false unless self_value == other_value
-				end
+				self_value  = self.get(attrib)
+				other_value = other.get(attrib)
+				return false unless self_value == other_value
 			end
 			true
 		end
