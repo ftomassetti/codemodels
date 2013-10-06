@@ -1,6 +1,8 @@
 require 'rgen/metamodel_builder'
 require 'codemodels/source_info'
 require 'codemodels/navigation'
+require 'codemodels/info_extraction'
+require 'codemodels/serialization'
 
 module CodeModels
 
@@ -10,6 +12,8 @@ class CodeModelsAstNode < RGen::MetamodelBuilder::MMBase
 	include ForeignAstExtensions
 	include HostPositionExtensions
 	include NavigationExtensions
+	include InfoExtraction::InfoExtractionFunctionalities
+	include Serialization::SerializationFunctionalities
 end
 
 end

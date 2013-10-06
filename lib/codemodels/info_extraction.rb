@@ -134,8 +134,4 @@ end
 
 end
 
-class CodeModelsAstNode
-	include InfoExtraction::InfoExtractionFunctionalities
-end
-
 end

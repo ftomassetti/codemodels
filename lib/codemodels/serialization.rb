@@ -145,8 +145,4 @@ end
 
 end # module
 
-class CodeModelsAstNode
-	include Serialization::SerializationFunctionalities
-end
-
 end # module

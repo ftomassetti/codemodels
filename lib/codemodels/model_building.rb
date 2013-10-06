@@ -39,8 +39,8 @@ class << self
 	attr_accessor :max_nesting
 end
 
-verbose     = false
-max_nesting = 500
+@@verbose     = false
+@@max_nesting = 500
 
 def self.verbose_warn(msg)
 	warn(msg) if verbose
