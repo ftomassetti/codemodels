@@ -157,6 +157,8 @@ class SourcePosition
 	end
 
 	def eql?(other)
+		return false unless other.respond_to?(:begin_point)
+		return false unless other.respond_to?(:end_point)
 		other.begin_point==begin_point && other.end_point==end_point
 	end
 
