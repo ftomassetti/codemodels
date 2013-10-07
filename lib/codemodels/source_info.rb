@@ -181,13 +181,39 @@ class SourceInfo
 		@position.end_point = point		
 	end
 
-	def begin_line
+	def begin_line(flag=:relative)
 		position.begin_point.line
 	end
 
-	def end_line
-		position.end_point.line
+	def end_line(flag=:relative)
+		position(flag).end_point.line
 	end	
+
+	def begin_column(flag=:relative)
+		position(flag).begin_point.column
+	end
+
+	def end_column(flag=:relative)
+		position(flag).end_point.column
+	end
+
+	def begin_point(flag=:relative)
+		position(flag).begin_point
+	end
+
+	def end_point(flag=:relative)
+		position(flag).end_point
+	end
+
+	def position(flag=:relative)
+		if flag==:relative
+			@position
+		elsif flag==:absolute
+			absolute_position
+		else
+			raise "unvalid value #{flag}"
+		end	
+	end
 
 	def absolute_position
 		raise "#{self} is not placed in any artifact" unless @artifact
