@@ -142,6 +142,10 @@ class SourceInfo
 		position.end_point.line
 	end	
 
+	def absolute_position
+		@artifact.position_to_absolute(@position)
+	end
+
 	private
 
 	def data_to_point(data)
