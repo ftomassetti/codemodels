@@ -48,7 +48,11 @@ class EmbeddedArtifact < AbstractArtifact
 end
 
 class FileArtifact < AbstractArtifact
-	attr_accessor :filename
+	attr_reader :filename
+
+	def initialize(filename)
+		@filename = filename
+	end
 
 	def absolute_start
 		sp = SourcePoint.new
