@@ -92,6 +92,17 @@ class SourcePoint
 		"Line #{@line}, Col #{@column}"
 	end
 
+	def to_absolute_index(s)
+		index = 0
+		lines = s.lines
+		(@line-1).times do
+			index+=lines.next.length
+		end
+		index+=@column
+		index-=1
+		index
+	end
+
 	private
 
 	def self.line(code,index)
@@ -144,6 +155,9 @@ class SourcePosition
 	end
 
 	def get_string(s)
+		as = @begin_point.to_absolute_index(s)
+		ae = @end_point.to_absolute_index(s)
+		s[as..ae]
 	end
 end
 
