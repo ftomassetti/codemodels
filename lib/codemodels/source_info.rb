@@ -180,7 +180,7 @@ class SourceInfo
 	attr_accessor :position
 
 	def code
-		position(:absolute).get_s(artifact.final_host.code)
+		position(:absolute).get_string(artifact.final_host.code)
 	end
 
 	def begin_point=(data)
