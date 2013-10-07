@@ -41,6 +41,10 @@ class EmbeddedArtifact < AbstractArtifact
 		p
 	end
 
+	def to_s
+		"Embedded in (#{@host_artifact.to_s}) at #{position_in_host}"
+	end
+
 end
 
 class FileArtifact < AbstractArtifact
@@ -51,6 +55,10 @@ class FileArtifact < AbstractArtifact
 		sp.line   = 1
 		sp.column = 1
 		sp
+	end
+
+	def to_s
+		"File #{filename}"
 	end
 end
 
@@ -68,6 +76,10 @@ class SourcePoint
 
 	def ==(other)
 		self.eql?(other)
+	end
+
+	def to_s
+		"Line #{@line}, Col #{@column}"
 	end
 end
 
@@ -95,6 +107,10 @@ class SourcePosition
 
 	def ==(other)
 		self.eql?(other)
+	end
+
+	def to_s
+		"from #{@begin_point} to #{@end_point}"
 	end
 end
 
