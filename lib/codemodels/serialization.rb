@@ -1,4 +1,4 @@
-# This code permit to transform RGen-Objects in Hash objects
+# This code permit to transform AstNode in Hash objects
 # containing lists and single values
 
 require 'json'
