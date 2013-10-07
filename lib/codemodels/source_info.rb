@@ -49,6 +49,10 @@ class EmbeddedArtifact < AbstractArtifact
 		host_artifact.final_host
 	end
 
+	def code
+		position_in_host.get_s(host_artifact.code)
+	end
+
 end
 
 class FileArtifact < AbstractArtifact
