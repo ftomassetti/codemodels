@@ -225,13 +225,15 @@ class SourceInfo
 	end
 
 	def position(flag=:relative)
-		if flag==:relative
+		value = if flag==:relative
 			@position
 		elsif flag==:absolute
 			absolute_position
 		else
 			raise "unvalid value #{flag}"
 		end	
+		raise "Returning not a position #{value} (#{value.class})" unless value.is_a?(SourcePosition)
+		value
 	end
 
 	def absolute_position
