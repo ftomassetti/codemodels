@@ -69,6 +69,12 @@ end
 class SourcePoint
 	attr_accessor :line, :column
 
+	def self.from_code_index(code,index)
+		l = line(code,index)
+		c = column(code,index)
+		SourcePoint.new(l,c)
+	end
+
 	def initialize(line=nil,column=nil)
 		@line   = line
 		@column = column
@@ -85,10 +91,30 @@ class SourcePoint
 	def to_s
 		"Line #{@line}, Col #{@column}"
 	end
+
+	private
+
+	def self.line(code,index)
+		piece = code[0..index]		
+		return piece.lines.count+1 if code[index]=="\n"
+		piece.lines.count
+	end
+
+	def self.column(code,index)
+		piece = code[0..index]
+		last_line = nil
+		piece.lines.each{|l| last_line=l}
+		return 0 if code[index]=="\n"
+		last_line.length
+	end
 end
 
 class SourcePosition
 	attr_accessor :begin_point, :end_point
+
+	def self.from_code_indexes(code,begin_index,end_index)
+		SourcePosition.new(SourcePoint.from_code_index(code,begin_index),SourcePoint.from_code_index(code,end_index))
+	end
 
 	def initialize(begin_point=nil,end_point=nil)
 		@begin_point = begin_point
@@ -115,6 +141,9 @@ class SourcePosition
 
 	def to_s
 		"from #{@begin_point} to #{@end_point}"
+	end
+
+	def get_string(s)
 	end
 end
 
