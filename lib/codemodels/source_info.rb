@@ -50,7 +50,7 @@ class EmbeddedArtifact < AbstractArtifact
 	end
 
 	def code
-		position_in_host.get_s(host_artifact.code)
+		position_in_host.get_string(host_artifact.code)
 	end
 
 end
