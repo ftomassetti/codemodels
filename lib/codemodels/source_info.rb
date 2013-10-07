@@ -45,13 +45,19 @@ class EmbeddedArtifact < AbstractArtifact
 		"Embedded in (#{@host_artifact.to_s}) at #{position_in_host}"
 	end
 
+	def final_host
+		host_artifact.final_host
+	end
+
 end
 
 class FileArtifact < AbstractArtifact
 	attr_reader :filename
+	attr_reader :code
 
-	def initialize(filename)
+	def initialize(filename,code)
 		@filename = filename
+		@code = code
 	end
 
 	def absolute_start
@@ -63,6 +69,10 @@ class FileArtifact < AbstractArtifact
 
 	def to_s
 		"File #{filename}"
+	end
+
+	def final_host
+		self
 	end
 end
 
@@ -165,8 +175,8 @@ class SourceInfo
 	attr_accessor :artifact
 	attr_accessor :position
 
-	def to_code
-		raise "Unimplemented"
+	def code
+		position(:absolute).get_s(artifact.final_host.code)
 	end
 
 	def begin_point=(data)

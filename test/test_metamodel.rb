@@ -17,7 +17,7 @@ def setup
 	ea3_pos.begin_line = 1
 	ea3_pos.begin_column = 2
 
-	@fa1 = FileArtifact.new("pippo.txt")
+	@fa1 = FileArtifact.new("pippo.txt","...code...")
 	
 	@ea1 = EmbeddedArtifact.new
 	@ea1.host_artifact = @fa1
