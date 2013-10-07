@@ -113,7 +113,7 @@ module NavigationExtensions
 	end		
 
 	def traverse_also_foreign(&block)
-		traverse(:also_foreign,block)
+		traverse(:also_foreign,&block)
 	end
 
 end
