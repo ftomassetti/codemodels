@@ -79,4 +79,15 @@ def test_container_also_foreign
 	assert_equal @a1,@c2.container_also_foreign
 end
 
+def test_root
+	assert_equal @a1,@a1.root(:also_foreign)
+	assert_equal @a1,@b1.root(:also_foreign)
+	assert_equal @a1,@b2.root(:also_foreign)
+	assert_equal @a1,@b3.root(:also_foreign)
+	assert_equal @a1,@b4.root(:also_foreign)
+	assert_equal @a1,@b5.root(:also_foreign)
+	assert_equal @a1,@c1.root(:also_foreign)
+	assert_equal @a1,@c2.root(:also_foreign)
+end
+
 end

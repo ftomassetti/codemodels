@@ -104,6 +104,11 @@ module NavigationExtensions
 		end
 	end
 
+	def root(flag=nil)
+		return self unless self.container(flag)
+		self.container(flag).root(flag)
+	end
+
 	def all_children_also_foreign
 		all_children(:also_foreign)
 	end
