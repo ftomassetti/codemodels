@@ -116,6 +116,10 @@ module NavigationExtensions
 		traverse(:also_foreign,&block)
 	end
 
+	def container_also_foreign
+		container(:also_foreign)
+	end
+
 end
 
 end

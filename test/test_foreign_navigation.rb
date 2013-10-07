@@ -68,4 +68,15 @@ def test_traverse_also_foreign
 	assert_equal ['a1','b4','b5','c1','b1','b2','b3','c2'],ids
 end
 
+def test_container_also_foreign
+	assert_equal nil,@a1.container_also_foreign
+	assert_equal @c1,@b1.container_also_foreign
+	assert_equal @b1,@b2.container_also_foreign
+	assert_equal @b1,@b3.container_also_foreign
+	assert_equal @a1,@b4.container_also_foreign
+	assert_equal @b4,@b5.container_also_foreign
+	assert_equal @a1,@c1.container_also_foreign
+	assert_equal @a1,@c2.container_also_foreign
+end
+
 end
