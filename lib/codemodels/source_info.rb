@@ -183,6 +183,11 @@ class SourceInfo
 		position(:absolute).get_string(artifact.final_host.code)
 	end
 
+	def position=(value)
+		raise "Not assignable #{value} (#{value.class})" unless value.is_a?(SourcePosition)
+		@position = value
+	end
+
 	def begin_point=(data)
 		point = data_to_point(data)
 		@position = SourcePosition.new unless @position
