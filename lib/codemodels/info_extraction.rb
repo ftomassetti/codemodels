@@ -1,5 +1,4 @@
 require 'rgen/metamodel_builder'
-require 'codemodels/metamodel'
 
 module CodeModels
 module InfoExtraction
@@ -133,5 +132,4 @@ module InfoExtractionFunctionalities
 end
 
 end
-
 end

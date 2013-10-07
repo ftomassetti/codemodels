@@ -41,10 +41,18 @@ class EmbeddedArtifact < AbstractArtifact
 		p
 	end
 
+	def to_s
+		"Embedded in (#{@host_artifact.to_s}) at #{position_in_host}"
+	end
+
 end
 
 class FileArtifact < AbstractArtifact
-	attr_accessor :filename
+	attr_reader :filename
+
+	def initialize(filename)
+		@filename = filename
+	end
 
 	def absolute_start
 		sp = SourcePoint.new
@@ -52,10 +60,20 @@ class FileArtifact < AbstractArtifact
 		sp.column = 1
 		sp
 	end
+
+	def to_s
+		"File #{filename}"
+	end
 end
 
 class SourcePoint
 	attr_accessor :line, :column
+
+	def self.from_code_index(code,index)
+		l = line(code,index)
+		c = column(code,index)
+		SourcePoint.new(l,c)
+	end
 
 	def initialize(line=nil,column=nil)
 		@line   = line
@@ -69,10 +87,45 @@ class SourcePoint
 	def ==(other)
 		self.eql?(other)
 	end
+
+	def to_s
+		"Line #{@line}, Col #{@column}"
+	end
+
+	def to_absolute_index(s)
+		index = 0
+		lines = s.lines
+		(@line-1).times do
+			index+=lines.next.length
+		end
+		index+=@column
+		index-=1
+		index
+	end
+
+	private
+
+	def self.line(code,index)
+		piece = code[0..index]		
+		return piece.lines.count+1 if code[index]=="\n"
+		piece.lines.count
+	end
+
+	def self.column(code,index)
+		piece = code[0..index]
+		last_line = nil
+		piece.lines.each{|l| last_line=l}
+		return 0 if code[index]=="\n"
+		last_line.length
+	end
 end
 
 class SourcePosition
 	attr_accessor :begin_point, :end_point
+
+	def self.from_code_indexes(code,begin_index,end_index)
+		SourcePosition.new(SourcePoint.from_code_index(code,begin_index),SourcePoint.from_code_index(code,end_index))
+	end
 
 	def initialize(begin_point=nil,end_point=nil)
 		@begin_point = begin_point
@@ -95,6 +148,16 @@ class SourcePosition
 
 	def ==(other)
 		self.eql?(other)
+	end
+
+	def to_s
+		"from #{@begin_point} to #{@end_point}"
+	end
+
+	def get_string(s)
+		as = @begin_point.to_absolute_index(s)
+		ae = @end_point.to_absolute_index(s)
+		s[as..ae]
 	end
 end
 
@@ -125,6 +188,11 @@ class SourceInfo
 	def end_line
 		position.end_point.line
 	end	
+
+	def absolute_position
+		raise "#{self} is not placed in any artifact" unless @artifact
+		@artifact.position_to_absolute(@position)
+	end
 
 	private
 

@@ -95,13 +95,19 @@ module NavigationExtensions
 	end
 
 	def container(flag=nil)
-		also_foreign = (flag==:also_foreign)
-		return self.eContainer if self.eContainer
-		if also_foreign
-			self.foreign_container
+		# a foreign child could have its own parent in the foreign ast, which is not part of the complexive AST
+		# the foreign parent has therefore the precedence.
+		also_foreign = (flag==:also_foreign)		
+		if also_foreign && self.foreign_container
+			return self.foreign_container
 		else
-			nil
+			return self.eContainer
 		end
+	end
+
+	def root(flag=nil)
+		return self unless self.container(flag)
+		self.container(flag).root(flag)
 	end
 
 	def all_children_also_foreign
@@ -113,7 +119,11 @@ module NavigationExtensions
 	end		
 
 	def traverse_also_foreign(&block)
-		traverse(:also_foreign,block)
+		traverse(:also_foreign,&block)
+	end
+
+	def container_also_foreign
+		container(:also_foreign)
 	end
 
 end

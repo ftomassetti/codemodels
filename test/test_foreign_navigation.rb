@@ -60,12 +60,34 @@ def test_all_children_deep_also_foreign
 	assert_equal [],							@c2.all_children_deep_also_foreign
 end
 
-def traverse_also_foreign
+def test_traverse_also_foreign
 	ids = []
-	CodeModels.traverse_also_foreign(@a1) do |n|
+	@a1.traverse_also_foreign do |n|
 		ids << n.id
 	end
 	assert_equal ['a1','b4','b5','c1','b1','b2','b3','c2'],ids
+end
+
+def test_container_also_foreign
+	assert_equal nil,@a1.container_also_foreign
+	assert_equal @c1,@b1.container_also_foreign
+	assert_equal @b1,@b2.container_also_foreign
+	assert_equal @b1,@b3.container_also_foreign
+	assert_equal @a1,@b4.container_also_foreign
+	assert_equal @b4,@b5.container_also_foreign
+	assert_equal @a1,@c1.container_also_foreign
+	assert_equal @a1,@c2.container_also_foreign
+end
+
+def test_root
+	assert_equal @a1,@a1.root(:also_foreign)
+	assert_equal @a1,@b1.root(:also_foreign)
+	assert_equal @a1,@b2.root(:also_foreign)
+	assert_equal @a1,@b3.root(:also_foreign)
+	assert_equal @a1,@b4.root(:also_foreign)
+	assert_equal @a1,@b5.root(:also_foreign)
+	assert_equal @a1,@c1.root(:also_foreign)
+	assert_equal @a1,@c2.root(:also_foreign)
 end
 
 end
