@@ -143,6 +143,7 @@ class SourceInfo
 	end	
 
 	def absolute_position
+		raise "#{self} is not placed in any artifact" unless @artifact
 		@artifact.position_to_absolute(@position)
 	end
 
