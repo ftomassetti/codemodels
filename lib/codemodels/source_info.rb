@@ -175,6 +175,22 @@ class SourcePosition
 		ae = @end_point.to_absolute_index(s)
 		s[as..ae]
 	end
+
+	def begin_line
+		@begin_point.line
+	end
+
+	def end_line
+		@end_point.line
+	end
+
+	def begin_column
+		@begin_point.column
+	end
+
+	def end_column
+		@end_point.column
+	end	
 end
 
 class SourceInfo
