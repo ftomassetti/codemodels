@@ -84,5 +84,56 @@ def test_source_position_get_string
 	assert_equal "third line",pos5.get_string(code)
 end
 
+def test_source_point_comparison
+	p1 = SourcePoint.new(1,1)
+	p2 = SourcePoint.new(1,1)
+	p3 = SourcePoint.new(1,3)
+	p4 = SourcePoint.new(2,1)
+	p5 = SourcePoint.new(2,6)
+
+	assert_equal  0,p1<=>p1
+	assert_equal  0,p1<=>p2
+	assert_equal -1,p1<=>p3
+	assert_equal -1,p1<=>p4
+	assert_equal -1,p1<=>p5
+
+	assert_equal  0,p2<=>p1
+	assert_equal  0,p2<=>p2
+	assert_equal -1,p2<=>p3
+	assert_equal -1,p2<=>p4
+	assert_equal -1,p2<=>p5	
+
+	assert_equal  1,p3<=>p1
+	assert_equal  1,p3<=>p2
+	assert_equal  0,p3<=>p3
+	assert_equal -1,p3<=>p4
+	assert_equal -1,p3<=>p5	
+
+	assert_equal  1,p4<=>p1
+	assert_equal  1,p4<=>p2
+	assert_equal  1,p4<=>p3
+	assert_equal  0,p4<=>p4
+	assert_equal -1,p4<=>p5	
+
+	assert_equal  1,p5<=>p1
+	assert_equal  1,p5<=>p2
+	assert_equal  1,p5<=>p3
+	assert_equal  1,p5<=>p4
+	assert_equal  0,p5<=>p5	
+end
+
+def test_source_position_include
+	p1 = SourcePoint.new(1,1)
+	p2 = SourcePoint.new(1,1)
+	p3 = SourcePoint.new(1,3)
+	p4 = SourcePoint.new(2,1)
+	p5 = SourcePoint.new(2,6)
+
+	assert_equal true,SourcePosition.new(p1,p2).include?(SourcePosition.new(p2,p1))
+	assert_equal true,SourcePosition.new(p1,p5).include?(SourcePosition.new(p3,p4))
+	assert_equal true,SourcePosition.new(p3,p5).include?(SourcePosition.new(p4,SourcePoint.new(2,2)))
+	assert_equal false,SourcePosition.new(p3,p4).include?(SourcePosition.new(p4,p5))
+	assert_equal false,SourcePosition.new(p1,p4).include?(SourcePosition.new(p1,p5))
+end
 
 end

@@ -81,6 +81,8 @@ class FileArtifact < AbstractArtifact
 end
 
 class SourcePoint
+	include Comparable
+	
 	attr_accessor :line, :column
 
 	def self.from_code_index(code,index)
@@ -115,6 +117,15 @@ class SourcePoint
 		index+=@column
 		index-=1
 		index
+	end
+
+	def <=>(other)
+		lc = self.line<=>other.line
+		if lc==0
+			self.column<=>other.column
+		else
+			lc
+		end
 	end
 
 	private
@@ -191,6 +202,11 @@ class SourcePosition
 	def end_column
 		@end_point.column
 	end	
+
+	def include?(other)
+		(self.begin_point <= other.begin_point) && (self.end_point >= other.end_point)
+	end
+
 end
 
 class SourceInfo
