@@ -29,7 +29,7 @@ class EmbeddedArtifact < AbstractArtifact
 
 	def absolute_start
 		p = host_artifact.absolute_start
-		p.line   += position_in_host.begin_point.line-1
+		p.line += position_in_host.begin_point.line-1
 		if position_in_host.begin_point.line==1			
 			# if I am on the first line of my "host", its column
 			# matters because there are not newlines to reset the column
@@ -97,14 +97,14 @@ class SourcePoint
 	end
 
 	def line=(v)
-		raise "Unvalid line #{line}" if line && line<1
-		@line   = line
+		raise "Unvalid line #{v}" if v && v<1
+		@line   = v
 	end
 
 	def column=(v)
 		# is valid only for newlines
-		raise "Unvalid column #{column}" if column && column<0
-		@column = column
+		raise "Unvalid column #{v}" if v && v<0
+		@column = v
 	end
 
 	def eql?(other)
