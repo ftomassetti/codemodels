@@ -128,6 +128,18 @@ class SourcePoint
 		index+=@column
 		index-=1
 		index
+		
+		# current_line = lines.next
+		# i=0
+		# c=0
+		# while c<@column
+		# 	c += current_line[i]=='\t' ? COLUMNS_FOR_TAB : 1
+		# 	i += 1
+		# end
+
+		# index+=c
+		# index-=1
+		# index		
 	end
 
 	def <=>(other)
