@@ -92,7 +92,18 @@ class SourcePoint
 	end
 
 	def initialize(line=nil,column=nil)
+		self.line= line
+		self.column= column
+	end
+
+	def line=(v)
+		raise "Unvalid line #{line}" if line && line<1
 		@line   = line
+	end
+
+	def column=(v)
+		# is valid only for newlines
+		raise "Unvalid column #{column}" if column && column<0
 		@column = column
 	end
 
