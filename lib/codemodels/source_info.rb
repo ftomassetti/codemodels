@@ -53,6 +53,10 @@ class EmbeddedArtifact < AbstractArtifact
 		position_in_host.get_string(host_artifact.code)
 	end
 
+	def foreign?
+		true
+	end
+
 end
 
 class FileArtifact < AbstractArtifact
@@ -77,6 +81,10 @@ class FileArtifact < AbstractArtifact
 
 	def final_host
 		self
+	end
+
+	def foreign?
+		true
 	end
 end
 
@@ -296,6 +304,10 @@ class SourceInfo
 	def absolute_position
 		raise "#{self} is not placed in any artifact" unless @artifact
 		@artifact.position_to_absolute(@position)
+	end
+
+	def foreign?
+		@artifact.foreign?
 	end
 
 	private
