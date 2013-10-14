@@ -53,9 +53,13 @@ class EmbeddedArtifact < AbstractArtifact
 		position_in_host.get_string(host_artifact.code)
 	end
 
-	def foreign?
+	def embedded?
 		true
 	end
+
+	def embedding_level
+		@host_artifact.embedding_level+1
+	end	
 
 end
 
@@ -83,8 +87,12 @@ class FileArtifact < AbstractArtifact
 		self
 	end
 
-	def foreign?
+	def embedded?
 		false
+	end
+
+	def embedding_level
+		0
 	end
 end
 
