@@ -314,8 +314,12 @@ class SourceInfo
 		@artifact.position_to_absolute(@position)
 	end
 
-	def foreign?
-		@artifact.foreign?
+	def embedded?
+		@artifact.embedded?
+	end
+
+	def embedding_level
+		@artifact.embedding_level
 	end
 
 	private
