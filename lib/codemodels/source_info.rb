@@ -84,7 +84,7 @@ class FileArtifact < AbstractArtifact
 	end
 
 	def foreign?
-		true
+		false
 	end
 end
 
