@@ -75,6 +75,9 @@ class RGen::MetamodelBuilder::MMBase
 					end
 				end						
 			end
+			if self.respond_to?(source)
+				return self.source.position(:absolute)==other.source.position(:absolute)
+			end
 			true
 		end
 
