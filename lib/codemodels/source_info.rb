@@ -94,6 +94,15 @@ class FileArtifact < AbstractArtifact
 	def embedding_level
 		0
 	end
+
+	def eql?(other)
+		return false unless other.is_a?(FileArtifact)
+		self.filename==other.filename && self.code==other.code
+	end
+
+	def ==(other)
+		self.eql?(other)
+	return
 end
 
 class SourcePoint
