@@ -75,7 +75,11 @@ class RGen::MetamodelBuilder::MMBase
 					end
 				end						
 			end
-			if self.respond_to?(source)
+			if self.respond_to?(:source)
+				return false if (self.source==nil) != (other.source==nil)
+				return true if self.source==nil
+				return false if (self.source.position==nil) != (other.source.position==nil)				
+				return true if self.source.position==nil
 				return self.source.position(:absolute)==other.source.position(:absolute)
 			end
 			true
