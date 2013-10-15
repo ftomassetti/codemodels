@@ -102,7 +102,8 @@ class FileArtifact < AbstractArtifact
 
 	def ==(other)
 		self.eql?(other)
-	return
+	end
+	
 end
 
 class SourcePoint
