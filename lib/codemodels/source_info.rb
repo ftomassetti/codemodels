@@ -252,6 +252,17 @@ class SourceInfo
 	attr_accessor :artifact
 	attr_accessor :position
 
+	def artifact(scope=:relative)
+		case scope
+		when :relative
+			@artifact
+		when :absolute
+			@artifact.final_host
+		else
+			raise "unvalid scope"
+		end
+	end
+
 	def code
 		position(:absolute).get_string(artifact.final_host.code)
 	end
