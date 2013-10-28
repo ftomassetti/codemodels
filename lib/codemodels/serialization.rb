@@ -39,11 +39,11 @@ module SerializationFunctionalities
 
 	def source_info_to_json(source_info)
 		source_map = {}
-		if self.source.begin_pos
-			source_map['begin_pos'] = {'line'=> self.source.begin_pos.line, 'column'=>self.source.begin_pos.column}
+		if self.source.begin_point
+			source_map['begin_point'] = {'line'=> self.source.begin_point.line, 'column'=>self.source.begin_point.column}
 		end				
-		if self.source.end_pos
-			source_map['end_pos'] = {'line'=> self.source.end_pos.line, 'column'=>self.source.end_pos.column}
+		if self.source.end_point
+			source_map['end_point'] = {'line'=> self.source.end_point.line, 'column'=>self.source.end_point.column}
 		end			
 		source_map	
 	end
