@@ -9,7 +9,7 @@ module NavigationExtensions
 		# Awful hack to forbid the same reference is visited twice when
 		# two references with the same name are found
 		already_used_references = []
-		ecore.eAllReferences.select {|r| r.containment}.each do |ref|
+		ecore.eAllReferences.sort_by{|r| r.name}.select {|r| r.containment}.each do |ref|
 			#raise "Too many features with name #{ref.name}. Count: #{features_by_name(ref.name).count}" if features_by_name(ref.name).count!=1
 			unless already_used_references.include?(ref.name)
 				res = self.send(ref.name.to_sym)
