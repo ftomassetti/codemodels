@@ -23,10 +23,10 @@ module SerializationFunctionalities
 			end
 		end
 		e_class = e_object.class.ecore
-		e_class.eAllAttributes.each do |a|		
+		e_class.eAllAttributes.sort_by { |a| a.name }.each do |a|		
 			jsonize_attr_value(map,a)
 		end
-		e_class.eAllReferences.each do |r|
+		e_class.eAllReferences.sort_by { |r| r.name }.each do |r|
 			id = jsonize_ref_value(map,r,adapters,serialization_memory)
 		end
 		if adapters.has_key? type
