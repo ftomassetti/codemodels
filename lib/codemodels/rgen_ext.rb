@@ -1,6 +1,7 @@
 # Extensions to RGen objects
 
 require 'rgen/metamodel_builder'
+require 'rgen/ext'
 
 class RGen::MetamodelBuilder::MMBase
 
@@ -34,48 +35,9 @@ class RGen::MetamodelBuilder::MMBase
 
 	module SingletonAddOn
 
-		# It does not check references, it is needed to avoid infinite recursion
-		def shallow_eql?(other)
-			return false if other==nil
-			return false unless self.class==other.class
-			self.class.ecore.eAllAttributes.each do |attrib|
-				raise "Attrib <nil> for class #{self.class.ecore.name}" unless attrib
-				self_value  = self.get(attrib)
-				other_value = other.get(attrib)
-				return false unless self_value == other_value
-			end
-			true
-		end
-
 		def eql?(other)
-			# it should ignore relations which has as opposite a containement
-			return false unless self.shallow_eql?(other)
-			self.class.ecore.eAllReferences.each do |ref|
-				self_value = self.get(ref)
-				other_value = other.get(ref)
-				to_ignore = ref.getEOpposite and ref.getEOpposite.containment
-				unless to_ignore
-					if ref.containment
-						return false unless self_value == other_value
-					else
-						if (self_value.is_a? Array) or (other_value.is_a? Array)
-							return false unless self_value.count==other_value.count
-							for i in 0..(self_value.count-1)
-								unless self_value[i].shallow_eql?(other_value[i])
-									return false 
-								end
-							end
-						else  
-							if self_value==nil
-								return false unless other_value==nil
-							else
-								return false unless self_value.shallow_eql?(other_value)
-							end
-						end
-					end
-				end						
-			end
-			if self.respond_to?(:source)
+			return false unless RGen::Ext::Comparison::DeepComparator.eql?(self,other)
+			if self.respond_to?(:source) || other.respond_to?(:source)
 				return false if (self.source==nil) != (other.source==nil)
 				return true if self.source==nil
 				return false if (self.source.position==nil) != (other.source.position==nil)				
