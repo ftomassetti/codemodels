@@ -49,6 +49,14 @@ module NavigationExtensions
 		end
 	end
 
+	def values_map(flags=nil)
+		if flags.include?(:deep)
+			collect_values_with_count_subtree(flags[:also_foreign])
+		else
+			collect_values_with_count
+		end
+	end
+
 	def collect_values_with_count
 		values = Hash.new {|h,k| h[k]=0}
 		self.class.ecore.eAllAttributes.each do |a|
