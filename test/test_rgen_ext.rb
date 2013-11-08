@@ -107,20 +107,12 @@ def test_equal_wit_children
 	assert_equal false, d1==d2 # a child is different
 end
 
-def test_build_with_one_attribute
-	c = C.build(1)
-	assert_equal 1,c.id
-end
-
 class McWithTwoAttrs < RGen::MetamodelBuilder::MMBase
+	class << self
+		include RGen::Ext::InstantiationExtensions
+	end
 	has_attr 'i',Integer
 	has_attr 's',String
-end
-
-def test_build_with_multiple_attributes
-	c = McWithTwoAttrs.build i: 27, s: 'Federico'
-	assert_equal 27,c.i
-	assert_equal 'Federico',c.s
 end
 
 class McWithNonContRef < RGen::MetamodelBuilder::MMBase
