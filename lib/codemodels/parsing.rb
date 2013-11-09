@@ -17,7 +17,7 @@ class ParsingError < Exception
  	def initialize(node,msg,line=nil)
  		@node = node
  		@msg = msg
- 		@line = lin
+ 		@line = line
  	end
 
  	def to_s
