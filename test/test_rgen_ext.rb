@@ -108,6 +108,7 @@ def test_equal_wit_children
 end
 
 class McWithTwoAttrs < RGen::MetamodelBuilder::MMBase
+	include ComparisonModule
 	class << self
 		include RGen::Ext::InstantiationExtensions
 	end
@@ -116,6 +117,7 @@ class McWithTwoAttrs < RGen::MetamodelBuilder::MMBase
 end
 
 class McWithNonContRef < RGen::MetamodelBuilder::MMBase
+	include ComparisonModule
 	has_one 'mcwta',McWithTwoAttrs
 end
 
@@ -145,6 +147,7 @@ def test_equal_with_nil_ref
 end
 
 class McWithNonContRefMany < RGen::MetamodelBuilder::MMBase
+	include ComparisonModule
 	has_many 'mcwtas',McWithTwoAttrs
 end
 
