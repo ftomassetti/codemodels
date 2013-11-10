@@ -12,6 +12,7 @@ class Parser
 
 	def initialize(internal_encoding=DEFAULT_INTERNAL_ENCODING)
 		@internal_encoding = internal_encoding
+		puts "WARN using an internal encoding different from the local encoding..." if "".encoding.name!=internal_encoding
 	end
 
 	def parse_artifact(artifact)
