@@ -28,7 +28,7 @@ class Parser
 	end
 
 	def parse_string(code)
-		raise 'Wrong encoding: it is #{code.encoding.name}, internally expected #{internal_encoding}' unless code.encoding.name==internal_encoding
+		raise "Wrong encoding: it is #{code.encoding.name}, internally expected #{internal_encoding}" unless code.encoding.name==internal_encoding
 		artifact = StringArtifact.new(code)
 		internal_parse_artifact(artifact)
 	end
