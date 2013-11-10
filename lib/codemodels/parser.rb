@@ -40,6 +40,12 @@ class ParsingError < Exception
 
 end
 
+# Most CodeModels parser are actually
+# wrapping another parser and adapting it
+# to CodeModels. When they encounter a node type
+# they do not know how to wrap this error is thrown.
+# This is not just for java based parsers, so it should
+# be not moved to codemodels-javaparserwrapper
 class UnknownNodeType < ParsingError
 
  	def initialize(node,line=nil,node_type=nil,where=nil)
