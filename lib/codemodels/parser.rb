@@ -4,8 +4,22 @@ module CodeModels
 
 class Parser
 
-	def parse_file(path)
-		parse_code(IO.read(path))
+	attr_reader :internal_encoding
+
+	def initialize(internal_encoding='UTF-8')
+		@internal_encoding = internal_encoding
+	end
+
+	def parse_file(path,file_encoding=nil)
+		file_encoding = internal_encoding unless file_encoding
+		code = IO.read(path,{:encoding : file_encoding})
+		code = code.encode(internal_encoding)
+		parse_code(code)
+	end
+
+	def parse_code(code)
+		raise 'Wrong encoding' unless code.encoding.name==internal_encoding
+		internal_parse_code(code)
 	end
 
 end
