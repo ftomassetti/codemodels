@@ -113,4 +113,49 @@ class FileArtifact < AbstractArtifact
 	
 end
 
+class StringArtifact < AbstractArtifact
+	attr_reader :code
+
+	def initialize(code)
+		@code = code
+	end
+
+	def absolute_start
+		sp = SourcePoint.new
+		sp.line   = 1
+		sp.column = 1
+		sp
+	end
+
+	def to_s
+		"<StringArtifact>"
+	end
+
+	def final_host
+		self
+	end
+
+	def embedded?
+		false
+	end
+
+	def embedding_level
+		0
+	end
+
+	def eql?(other)
+		return false unless other.is_a?(StringArtifact)
+		self.code==other.code
+	end
+
+	def ==(other)
+		self.eql?(other)
+	end
+
+	def name
+		'<string>'
+	end
+	
+end
+
 end
