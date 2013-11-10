@@ -4,9 +4,11 @@ module CodeModels
 
 class Parser
 
+	DEFAULT_INTERNAL_ENCODING = 'UTF-8'
+
 	attr_reader :internal_encoding
 
-	def initialize(internal_encoding='UTF-8')
+	def initialize(internal_encoding=DEFAULT_INTERNAL_ENCODING)
 		@internal_encoding = internal_encoding
 	end
 
