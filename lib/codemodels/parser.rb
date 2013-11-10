@@ -10,6 +10,10 @@ class Parser
 		@internal_encoding = internal_encoding
 	end
 
+	def parse_artifact(artifact)
+		internal_parse_code(code,artifact.name)
+	end
+
 	def parse_file(path,file_encoding=nil)
 		file_encoding = internal_encoding unless file_encoding
 		code = IO.read(path,{ :encoding => file_encoding, :mode => 'rb'})
@@ -17,9 +21,14 @@ class Parser
 		parse_code(code)
 	end
 
+	# Deprecated: use parse_string
 	def parse_code(code)
+		parse_string(code)
+	end
+
+	def parse_string(code)
 		raise 'Wrong encoding' unless code.encoding.name==internal_encoding
-		internal_parse_code(code)
+		internal_parse_code(code,'<string>')
 	end
 
 end

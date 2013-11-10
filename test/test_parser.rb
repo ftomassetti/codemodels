@@ -12,7 +12,7 @@ class TestParser < Test::Unit::TestCase
 
 	class SimpleTextParser < CodeModels::Parser
 
-		def internal_parse_code(code)
+		def internal_parse_code(code,name)
 			Metamodel::SimpleText.build(code)
 		end
 

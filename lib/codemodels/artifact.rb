@@ -60,6 +60,10 @@ class EmbeddedArtifact < AbstractArtifact
 		@host_artifact.embedding_level+1
 	end	
 
+	def name
+		'<embedded>'
+	end
+
 end
 
 class FileArtifact < AbstractArtifact
@@ -101,6 +105,10 @@ class FileArtifact < AbstractArtifact
 
 	def ==(other)
 		self.eql?(other)
+	end
+
+	def name
+		filename
 	end
 	
 end
