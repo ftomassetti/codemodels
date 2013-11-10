@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Module
 
   def simple_name

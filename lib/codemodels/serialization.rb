@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # This code permit to transform AstNode in Hash objects
 # containing lists and single values
 

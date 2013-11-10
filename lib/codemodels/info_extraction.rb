@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'rgen/metamodel_builder'
 
 module CodeModels

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'codemodels/monkey_patching'
 
 module CodeModels
