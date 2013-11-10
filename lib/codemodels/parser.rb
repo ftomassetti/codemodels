@@ -12,7 +12,7 @@ class Parser
 
 	def parse_file(path,file_encoding=nil)
 		file_encoding = internal_encoding unless file_encoding
-		code = IO.read(path,{:encoding : file_encoding})
+		code = IO.read(path,{ :encoding => file_encoding, :mode => 'rb'})
 		code = code.encode(internal_encoding)
 		parse_code(code)
 	end
