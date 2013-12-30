@@ -21,9 +21,9 @@ Gem::Specification.new do |s|
 
   s.add_dependency('json')
   s.add_dependency('rgen')
-  s.add_dependency('rgen_ext')
+  s.add_dependency('rgen_ext','0.0.2')
 
-  s.add_development_dependency "bundler", "1.3.5"
+  s.add_development_dependency "bundler"
   s.add_development_dependency "rake"  
   s.add_development_dependency "simplecov"
 end
