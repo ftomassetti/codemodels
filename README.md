@@ -1,19 +1,21 @@
 codemodels
 ===========
 
-codemodels is a library to create and manipulate models. A serialization format (based on JSON) is defined.
+codemodels is a library to represent and manipulate homogeneously Abstract Syntax Trees of different languages models.
 
-It is based on [RGen](http://github.com/mthiede/rgen) and it supportes the conversion of EMF models through [emf_jruby](http://github.com/ftomassetti/emf_jruby).
+It is based on [RGen](http://github.com/mthiede/rgen) and [RGen-Ext](https://github.com/ftomassetti/rgen_ext). 
 
 There are different gems which transform source code in models of the code. Currently they are:
-* [html-lightmodels](http://github.com/ftomassetti/html-lightmodels)
+* [codemodels-html](http://github.com/ftomassetti/codemodels-html)
 * [codemodels-java](http://github.com/ftomassetti/codemodels-java)
-* [js-lightmodels](http://github.com/ftomassetti/js-lightmodels)
-* [properties-lightmodels](http://github.com/ftomassetti/properties-lightmodels)
+* [codemodels-js](http://github.com/ftomassetti/codemodels-js)
+* [codemodels-properties](http://github.com/ftomassetti/codemodels-properties)
 * [codemodels-ruby](http://github.com/ftomassetti/codemodels-ruby)
-* [xml-lightmodels](http://github.com/ftomassetti/xml-lightmodels)
+* [codemodels-xml](http://github.com/ftomassetti/codemodels-xml)
 
-Therefore it can be used to perform analysis on different languages.
+DSLs based on EMF are planned to by supported using [emf_jruby](http://github.com/ftomassetti/emf_jruby).
+
+Codemodels can be used to perform analysis on different languages.
 
 Features
 ========
