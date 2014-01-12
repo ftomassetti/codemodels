@@ -27,9 +27,9 @@ class Parser
 
 	# Parse the file by producing an artifact corresponding to the file
 	def parse_file(path,file_encoding=nil)
-		file_encoding = internal_encoding unless file_encoding
+		file_encoding = @internal_encoding unless file_encoding
 		code = IO.read(path,{ :encoding => file_encoding, :mode => 'rb'})
-		code = code.encode(internal_encoding)
+		code = code.encode(@internal_encoding)
 		artifact = FileArtifact.new(path,code)
 		parse_artifact(artifact)
 	end
