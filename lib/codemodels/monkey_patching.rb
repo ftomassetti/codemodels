@@ -1,6 +1,7 @@
 # encoding: UTF-8
 class Module
 
+  # If the name of contains a colon, it returns the part after the last colon
   def simple_name
     if (i = (r = name).rindex(':')) then r[0..i] = '' end
     r
