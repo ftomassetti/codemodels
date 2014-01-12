@@ -1,18 +1,24 @@
 # encoding: utf-8
 
-# This code permit to transform AstNode in Hash objects
-# containing lists and single values
-
 require 'json'
 require 'fileutils'
 require 'rgen/metamodel_builder'
 
 module CodeModels
+
+# Everything related to serialization to Hash, lists and basic values
+# is contained in this module
 module Serialization
 
+# Intended to be included
 module SerializationFunctionalities
 
+	# Deprecated, use to_hash instead
 	def to_json(params={})
+		to_hash(params)
+	end
+
+	def to_hash(params={})
 		serialization_memory = params.fetch(:memory,SerializationMemory.new)
 		adapters			 = params.fetch(:adapters,{})
 		with_source_info	 = params.fetch(:source_info,true)
@@ -21,15 +27,15 @@ module SerializationFunctionalities
 		map = { 'type' => type, 'id' => serialization_memory.id(e_object) }
 		if with_source_info
 			if self.respond_to?(:source) && self.source								
-				map['source'] = source_info_to_json(self.source)
+				map['source'] = source_info_to_hash(self.source)
 			end
 		end
 		e_class = e_object.class.ecore
 		e_class.eAllAttributes.sort_by { |a| a.name }.each do |a|		
-			jsonize_attr_value(map,a)
+			insert_attr_value_in_hash(map,a)
 		end
 		e_class.eAllReferences.sort_by { |r| r.name }.each do |r|
-			id = jsonize_ref_value(map,r,adapters,serialization_memory)
+			id = insert_ref_value_in_hash(map,r,adapters,serialization_memory)
 		end
 		if adapters.has_key? type
 			adapters[type].adapt(self,map)
@@ -39,7 +45,7 @@ module SerializationFunctionalities
 
 	private
 
-	def source_info_to_json(source_info)
+	def source_info_to_hash(source_info)
 		source_map = {}
 		if self.source.begin_point
 			source_map['begin_point'] = {'line'=> self.source.begin_point.line, 'column'=>self.source.begin_point.column}
@@ -54,7 +60,7 @@ module SerializationFunctionalities
 		self.class.to_s
 	end
 
-	def jsonize_attr_value(map,e_attr)
+	def insert_attr_value_in_hash(map,e_attr)
 		value = self.send(e_attr.name.to_sym)
 		unless e_attr.many
 			map["attr_#{e_attr.name}"] = value
@@ -67,24 +73,24 @@ module SerializationFunctionalities
 		end
 	end
 
-	def jsonize_ref_value(map,e_ref,adapters,serialization_memory)
+	def insert_ref_value_in_hash(map,e_ref,adapters,serialization_memory)
 		value = self.send e_ref.name.to_sym
 
 		propname = "relcont_#{e_ref.name}" if e_ref.containment
 		propname = "relnoncont_#{e_ref.name}" if not e_ref.containment
 
 		unless e_ref.many		
-			map[propname] = jsonize_ref_single_el(value,e_ref.containment,adapters,serialization_memory)
+			map[propname] = insert_ref_single_value_in_hash(value,e_ref.containment,adapters,serialization_memory)
 		else
 			l = []
 			(0...(value.size)).each do |i|				
-				l << jsonize_ref_single_el(value.at(i),e_ref.containment,adapters,serialization_memory)
+				l << insert_ref_single_value_in_hash(value.at(i),e_ref.containment,adapters,serialization_memory)
 			end
 			map[propname] = l
 		end
 	end
 
-	def jsonize_ref_single_el(single_value,containment,adapters,serialization_memory)
+	def insert_ref_single_value_in_hash(single_value,containment,adapters,serialization_memory)
 		if containment
 			single_value.to_json(memory:serialization_memory,adapters:adapters)
 		else
