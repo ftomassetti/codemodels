@@ -1,8 +1,11 @@
 # encoding: UTF-8
 module CodeModels
 
+# The flag :also_foreign deciced if to consider the 
+# AST of embedded code
 module NavigationExtensions
 
+	# All direct children
 	def all_children(flag=nil)
 		also_foreign = (flag==:also_foreign)
 		arr = []
@@ -11,7 +14,6 @@ module NavigationExtensions
 		# two references with the same name are found
 		already_used_references = []
 		ecore.eAllReferences.sort_by{|r| r.name}.select {|r| r.containment}.each do |ref|
-			#raise "Too many features with name #{ref.name}. Count: #{features_by_name(ref.name).count}" if features_by_name(ref.name).count!=1
 			unless already_used_references.include?(ref.name)
 				res = self.send(ref.name.to_sym)
 				if ref.many
@@ -32,6 +34,7 @@ module NavigationExtensions
 		arr
 	end
 
+	# All direct and indirect children
 	def all_children_deep(flag=nil)
 		arr = []
 		all_children(flag).each do |c|
@@ -43,6 +46,8 @@ module NavigationExtensions
 		arr
 	end
 
+	# Execute an operation on the node itself and all children,
+	# direct and indirect.
 	def traverse(flag=nil,&op)
 		op.call(self)
 		all_children_deep(flag).each do |c|
@@ -50,14 +55,20 @@ module NavigationExtensions
 		end
 	end
 
+	# All the values considering the node, 
+	# and the direct and indirect children (if :deep is contained in flags).
+	# In that case the presence of :also_foreign determine if also embedded
+	# ASTs are considrered
 	def values_map(flags=nil)
+		raise ":also_foreign makes sense only when :deep is used" if flags.include?(:also_foreign) && !flags.include?(:deep)
 		if flags.include?(:deep)
-			collect_values_with_count_subtree(flags[:also_foreign])
+			collect_values_with_count_subtree(flags.include?(:also_foreign)?(:also_foreign):nil)
 		else
 			collect_values_with_count
 		end
 	end
 
+	# Deprecated, use values_map instead
 	def collect_values_with_count
 		values = Hash.new {|h,k| h[k]=0}
 		self.class.ecore.eAllAttributes.each do |a|
@@ -73,6 +84,7 @@ module NavigationExtensions
 		values			
 	end
 
+	# Deprecated, use values_map instead
 	def collect_values_with_count_subtree(flag=nil)
 		values = collect_values_with_count
 		all_children_deep(flag).each do |c|
@@ -103,9 +115,10 @@ module NavigationExtensions
 		selected[0]
 	end
 
+	# Parent of the node.
+	# A foreign child could have its own parent in the foreign ast, which is not part of the complexive AST
+	# the foreign parent has therefore the precedence.
 	def container(flag=nil)
-		# a foreign child could have its own parent in the foreign ast, which is not part of the complexive AST
-		# the foreign parent has therefore the precedence.
 		also_foreign = (flag==:also_foreign)		
 		if also_foreign && self.foreign_container
 			return self.foreign_container
@@ -127,10 +140,12 @@ module NavigationExtensions
 		all_children_deep(:also_foreign)
 	end		
 
+	# Deprecated
 	def traverse_also_foreign(&block)
 		traverse(:also_foreign,&block)
 	end
 
+	# Deprecated
 	def container_also_foreign
 		container(:also_foreign)
 	end
