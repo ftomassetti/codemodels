@@ -18,7 +18,7 @@ class Parser
 	def initialize(internal_encoding=DEFAULT_INTERNAL_ENCODING)
 		@internal_encoding = internal_encoding
 		puts "WARN using an internal encoding different from the local encoding..." if "".encoding.name!=internal_encoding
-		raise "The method internal_parse_artifact should be implemented" unless self.respond_to?(:intern).should be_true
+		raise "The method internal_parse_artifact should be implemented" unless self.respond_to?(:internal_parse_artifact)
 	end
 
 	def parse_artifact(artifact)
