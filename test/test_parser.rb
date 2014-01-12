@@ -18,6 +18,24 @@ class TestParser < Test::Unit::TestCase
 
 	end
 
+	class ArtifactReturningParser < CodeModels::Parser
+
+		attr_reader :last_parser_artifact
+
+		def internal_parse_artifact(artifact)
+			@last_parser_artifact = artifact
+			Metamodel::SimpleText.build(artifact.code)
+		end
+
+	end
+
+	def test_parse_string
+		p = ArtifactReturningParser.new
+		p.parse_string("PIPPO")
+		assert p.last_parser_artifact.is_a?(StringArtifact)
+		assert_equal "PIPPO", p.last_parser_artifact.code
+	end
+
 	def test_encoding
 		text1 = "Füße laissé fenêtre Miško Minár ă î Timișoara"
 		# ISO 8859-1 does not support all characters, so it is shorter

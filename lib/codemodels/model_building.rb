@@ -3,7 +3,8 @@ require 'codemodels/serialization'
 
 module CodeModels
 
-class FilesSource
+# Filter all files in a directory by extension
+class FilesFilter
 	
 	def initialize(dir,extension)
 		@dir = dir

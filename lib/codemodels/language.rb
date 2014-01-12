@@ -48,7 +48,7 @@ end
 
 def self.parse_file(path)
 	l = @@languages.find {|l| l.can_parse?(path) }
-	raise NoLanguageRegistered.new(path) unless l
+	raise NoLanguageRegisteredError.new(path) unless l
 	l.parser.parse_file(path)
 end
 

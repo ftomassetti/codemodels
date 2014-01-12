@@ -65,7 +65,7 @@ def test_parse_file_registered_language
 end
 
 def test_parse_file_unregistered_language
-	assert_raise NoLanguageRegistered do 
+	assert_raise NoLanguageRegisteredError do 
 		CodeModels.parse_file('pippo.else')
 	end
 end
