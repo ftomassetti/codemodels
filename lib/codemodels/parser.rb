@@ -36,7 +36,7 @@ class Parser
 
 	# Parse the file by producing an artifact corresponding to the string
 	def parse_string(code)
-		raise "Wrong encoding: it is #{code.encoding.name}, internally expected #{internal_encoding}" unless code.encoding.name==internal_encoding
+		code = code.encode(@internal_encoding)
 		artifact = StringArtifact.new(code)
 		parse_artifact(artifact)
 	end
