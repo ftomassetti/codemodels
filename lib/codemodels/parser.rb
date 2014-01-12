@@ -43,12 +43,13 @@ class Parser
 
 end
 
-class ParsingError < Exception
+class ParsingError < StandardError
  	attr_reader :node
  	attr_reader :line
  	attr_reader :column
 
  	def initialize(node,msg,line=nil,column=nil)
+ 		super("Parsing error: #{msg}")
  		@node = node
  		@msg = msg
  		@line = line

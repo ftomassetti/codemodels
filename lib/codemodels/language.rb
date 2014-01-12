@@ -36,12 +36,14 @@ def self.registered_languages
 	@@languages
 end
 
-class NoLanguageRegistered < Exception
+class NoLanguageRegisteredError < StandardError
 	attr_reader :path
 
 	def initialize(path)
+		super("No language registered to parse #{path}")
 		@path = path
 	end
+
 end
 
 def self.parse_file(path)
