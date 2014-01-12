@@ -26,6 +26,10 @@ class Language
 
 end
 
+def self.unregister_all_languages
+	@@languages = []
+end
+
 # It avoids multiple registration of the same class
 def self.register_language(language)
 	return if @@languages.find {|l| l.is_a?(language.class)}
@@ -37,19 +41,28 @@ def self.registered_languages
 end
 
 class NoLanguageRegisteredError < StandardError
-	attr_reader :path
+	attr_reader :description
 
-	def initialize(path)
-		super("No language registered to parse #{path}")
-		@path = path
+	# @param description a description of the thing being parsed or the mechanism
+	#                    through which a language was searched
+	def initialize(description)
+		super("No language registered to parse #{description}")
+		@description = description
 	end
 
 end
 
 def self.parse_file(path)
 	l = @@languages.find {|l| l.can_parse?(path) }
-	raise NoLanguageRegisteredError.new(path) unless l
+	raise NoLanguageRegisteredError.new("language for path #{path}") unless l
 	l.parser.parse_file(path)
+end
+
+def self.parse_string(code,language_name)
+	language_name = language_name.to_s if language_name.is_a?(Symbol)
+	l = @@languages.find {|l| l.name==language_name }
+	raise NoLanguageRegisteredError.new("language with name '#{language_name}'") unless l
+	l.parser.parse_string(code)
 end
 
 end

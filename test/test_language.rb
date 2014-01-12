@@ -14,13 +14,14 @@ class MyLanguage < Language
 end
 
 class MyOtherLanguage < Language
-	def initialize(my_parser)
-		super('MyLanguage')
+	attr_reader :parser
+
+	def initialize(name)
+		super(name)
 		@filenames << 'pippo'
-		@parser = my_parser
+		@parser = MyParser.new
 	end
 end
-
 
 class MyParser
 	attr_reader :invokations
@@ -32,12 +33,27 @@ class MyParser
 	def parse_file(path)
 		@invokations << path
 	end
+
+	def parse_string(code)
+		@invokations << code
+	end
 end
 
 def setup
+	CodeModels.unregister_all_languages
 	@my_language = MyLanguage.new(MyParser.new)
 	2.times {CodeModels.register_language(@my_language)}
 	@my_parser = CodeModels.registered_languages[0].parser
+end
+
+def test_codemodels_parse_string
+	l = MyOtherLanguage.new('my_beatiful_language')
+	p = l.parser
+	CodeModels.register_language(l)
+	CodeModels.parse_string("PIPPO1",:my_beatiful_language)
+	assert_equal ["PIPPO1"], p.invokations
+	CodeModels.parse_string("PIPPO2","my_beatiful_language")
+	assert_equal ["PIPPO1","PIPPO2"], p.invokations
 end
 
 def test_my_language
@@ -54,9 +70,9 @@ def test_can_parse_extension?
 end
 
 def test_can_parse_extension?
-	@l = MyOtherLanguage.new('MyOtherLanguage')
-	assert_equal true, @l.can_parse?('a/dir/pippo')
-	assert_equal false, @l.can_parse?('a/dir/pluto')
+	l = MyOtherLanguage.new('MyOtherLanguage')
+	assert_equal true, l.can_parse?('a/dir/pippo')
+	assert_equal false, l.can_parse?('a/dir/pluto')
 end
 
 def test_parse_file_registered_language
