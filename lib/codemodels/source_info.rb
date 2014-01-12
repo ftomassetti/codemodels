@@ -7,6 +7,13 @@ require 'codemodels/artifact'
 
 module CodeModels
 
+# Info which specify from which part of the code a node was
+# obtained.
+#
+# Some methods can accept a scope to be :relative or :absolute.
+# When a piece of code derives from some embedded snipped (e.g., a piece of JS in html file)
+# the relative position is specified in respect to the snippet, while the absolute
+# in respect to the containing file.
 class SourceInfo
 	attr_accessor :artifact
 	attr_accessor :position
@@ -31,46 +38,48 @@ class SourceInfo
 		@position = value
 	end
 
+	# @param data is expected to be an hash with :line and :column
 	def begin_point=(data)
 		point = data_to_point(data)
 		@position = SourcePosition.new unless @position
 		@position.begin_point = point
 	end
 
+	# @param data is expected to be an hash with :line and :column
 	def end_point=(data)
 		point = data_to_point(data)
 		@position = SourcePosition.new unless @position
 		@position.end_point = point		
 	end
 
-	def begin_line(flag=:relative)
-		position.begin_point.line
+	def begin_line(scope=:relative)
+		position(scope).begin_point.line
 	end
 
-	def end_line(flag=:relative)
-		position(flag).end_point.line
+	def end_line(scope=:relative)
+		position(scope).end_point.line
 	end	
 
-	def begin_column(flag=:relative)
-		position(flag).begin_point.column
+	def begin_column(scope=:relative)
+		position(scope).begin_point.column
 	end
 
 	def end_column(flag=:relative)
-		position(flag).end_point.column
+		position(scope).end_point.column
 	end
 
-	def begin_point(flag=:relative)
-		position(flag).begin_point
+	def begin_point(scope=:relative)
+		position(scope).begin_point
 	end
 
-	def end_point(flag=:relative)
-		position(flag).end_point
+	def end_point(scope=:relative)
+		position(scope).end_point
 	end
 
-	def position(flag=:relative)
-		value = if flag==:relative
+	def position(scope=:relative)
+		value = if scope==:relative
 			@position
-		elsif flag==:absolute
+		elsif scope==:absolute
 			absolute_position
 		else
 			raise "unvalid value #{flag}"
@@ -79,6 +88,7 @@ class SourceInfo
 		value
 	end
 
+	# Deprecated, use position(:absolute) instead
 	def absolute_position
 		raise "#{self} is not placed in any artifact" unless @artifact
 		@artifact.position_to_absolute(@position)
@@ -115,14 +125,16 @@ module SourceInfoExtensions
 	attr_accessor :language
 	attr_accessor :source	
 
-	def set_start_point(data)
+	# @param data is expected to be an hash with :line and :column
+	def start_point=(data)
 		@source = SourceInfo.new unless @source
-		@source.set_start_point(data)
+		@source.start_point = data
 	end
 
-	def set_end_point(data)
+	# @param data is expected to be an hash with :line and :column
+	def end_point=(data)
 		@source = SourceInfo.new unless @source
-		@source.set_end_point(data)		
+		@source.end_point = data
 	end
 end
 
@@ -134,6 +146,7 @@ module ForeignAstExtensions
 
 	attr_accessor :foreign_container
 
+	# The name is to maintain similarity with RGen (so we used camelcase instead of underscore)
 	def addForeign_asts(foreign_ast)
 		foreign_asts << foreign_ast
 		foreign_ast.foreign_container = self
@@ -145,14 +158,16 @@ module ForeignAstExtensions
 	end
 end
 
+# Deprecated
 module HostPositionExtensions
 
+	# Deprecated
 	def absolute_position
+		puts "HostPositionExtensions is DEPRECATED"
 		artifact = source.artifact
 		artifact.absolute_position(source.position)
 	end
 
 end
-
 
 end
