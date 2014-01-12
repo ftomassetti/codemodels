@@ -3,8 +3,16 @@ require 'codemodels/position'
 
 module CodeModels
 
-class AbstractArtifact
+# An artifact is everything that
+# can contain code
+class Artifact
 
+	def initialize
+		raise "You should not use Artifact directly" if self.class==Artifact
+	end
+
+	# @param point a point relative to this artifact
+	# @return the same point specified in respect to the absolute artifact
 	def point_to_absolute(point)
 		offset = absolute_start
 		p = SourcePoint.new
@@ -14,6 +22,8 @@ class AbstractArtifact
 		p
 	end
 
+	# @param position a position relative to this artifact
+	# @return the same position specified in respect to the absolute artifact
 	def position_to_absolute(position)
 		pos = SourcePosition.new
 		pos.begin_point = point_to_absolute(position.begin_point)
@@ -23,7 +33,8 @@ class AbstractArtifact
 
 end
 
-class EmbeddedArtifact < AbstractArtifact
+# Represent a snippet embedded in something else
+class EmbeddedArtifact < Artifact
 	attr_accessor :host_artifact
 	attr_accessor :position_in_host
 
@@ -67,7 +78,7 @@ class EmbeddedArtifact < AbstractArtifact
 
 end
 
-class FileArtifact < AbstractArtifact
+class FileArtifact < Artifact
 	attr_reader :filename
 	attr_reader :code
 
@@ -114,7 +125,7 @@ class FileArtifact < AbstractArtifact
 	
 end
 
-class StringArtifact < AbstractArtifact
+class StringArtifact < Artifact
 	attr_reader :code
 
 	def initialize(code)
