@@ -1,3 +1,5 @@
+require 'pathname'
+
 # encoding: utf-8
 module CodeModels
 
@@ -5,18 +7,21 @@ module CodeModels
 
 class Language
 	attr_reader :name
+	attr_reader :filenames
 	attr_reader :extensions
 	attr_reader :parser
 
 	def initialize(name)
 		@name = name
 		@extensions = []
+		@filenames = []
 	end	
 
 	def can_parse?(path)
+		simple_name = Pathname.new(path).basename.to_s
 		extension = File.extname(path)
 		extension=extension[1..-1] if extension.length>0		
-		@extensions.include?(extension)
+		@extensions.include?(extension) || @filenames.include?(simple_name) 
 	end
 
 end

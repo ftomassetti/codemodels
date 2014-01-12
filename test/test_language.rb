@@ -13,6 +13,15 @@ class MyLanguage < Language
 	end
 end
 
+class MyOtherLanguage < Language
+	def initialize(my_parser)
+		super('MyLanguage')
+		@filenames << 'pippo'
+		@parser = my_parser
+	end
+end
+
+
 class MyParser
 	attr_reader :invokations
 
@@ -39,9 +48,15 @@ def test_my_language
 	assert l.parser.is_a?(MyParser)
 end
 
-def test_can_parse?
-	assert_equal true, @my_language.can_parse?('pippo.my1')
-	assert_equal false, @my_language.can_parse?('pippo.else')
+def test_can_parse_extension?
+	assert_equal true, @my_language.can_parse?('a/dir/pippo.my1')
+	assert_equal false, @my_language.can_parse?('a/dir/pippo.else')
+end
+
+def test_can_parse_extension?
+	@l = MyOtherLanguage.new('MyOtherLanguage')
+	assert_equal true, @l.can_parse?('a/dir/pippo')
+	assert_equal false, @l.can_parse?('a/dir/pluto')
 end
 
 def test_parse_file_registered_language
