@@ -2,11 +2,17 @@
 
 module CodeModels
 
+# Point in an artifact, indicated by line and column
+# The newlines are considered as column 0 of the next line.
+# Lines should be always positive and all but newlines should have
+# columns positive (>0)
 class SourcePoint
 	include Comparable
 	
 	attr_accessor :line, :column
 
+	# @param [String code]
+	# @param [int index] index of the starting character in the code
 	def self.from_code_index(code,index)
 		l = line(code,index)
 		c = column(code,index)
@@ -50,18 +56,6 @@ class SourcePoint
 		index+=@column
 		index-=1
 		index
-		
-		# current_line = lines.next
-		# i=0
-		# c=0
-		# while c<@column
-		# 	c += current_line[i]=='\t' ? COLUMNS_FOR_TAB : 1
-		# 	i += 1
-		# end
-
-		# index+=c
-		# index-=1
-		# index		
 	end
 
 	def <=>(other)
@@ -90,6 +84,7 @@ class SourcePoint
 	end
 end
 
+# A position is a pair of a begin and an end point
 class SourcePosition
 	attr_accessor :begin_point, :end_point
 
@@ -112,6 +107,17 @@ class SourcePosition
 		@begin_point.column = column
 	end
 
+	def end_line=(line)
+		@end_point=SourcePoint.new unless @end_point
+		@end_point.line = line
+	end
+
+	def end_column=(column)
+		@end_point=SourcePoint.new unless @end_point
+		@end_point.column = column
+	end
+
+
 	def eql?(other)
 		return false unless other.respond_to?(:begin_point)
 		return false unless other.respond_to?(:end_point)
@@ -126,10 +132,15 @@ class SourcePosition
 		"from #{@begin_point} to #{@end_point}"
 	end
 
-	def get_string(s)
-		as = @begin_point.to_absolute_index(s)
-		ae = @end_point.to_absolute_index(s)
-		s[as..ae]
+	# Deprecated, use get_code instead
+	def get_string(artifact_code)
+		get_code(artifact_code)
+	end
+
+	def get_code(artifact_code)
+		as = @begin_point.to_absolute_index(artifact_code)
+		ae = @end_point.to_absolute_index(artifact_code)
+		artifact_code[as..ae]
 	end
 
 	def begin_line
