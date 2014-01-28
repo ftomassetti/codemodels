@@ -23,3 +23,7 @@ Features
 It handles also the case in which different languages are hosted in the same file (for example a Javascript script inside an HTML page).
 
 Most of the parsers permit also to associate each node with a precise point in the source code, so thath they could be used to implement layout-preserving refactoring.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ftomassetti/codemodels/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
